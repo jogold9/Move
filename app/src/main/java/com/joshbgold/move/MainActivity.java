@@ -1,10 +1,13 @@
 package com.joshbgold.move;
 
+import android.app.Activity;
+import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.view.View;
+import android.widget.Button;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
 
     public int alarmInterval = 3600000; //equal to 1 hour in milliseconds
 
@@ -12,10 +15,31 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        final Button exitButton = (Button) findViewById(R.id.exitButton);
+
+        //MediaPlayer object is used to play a mp3 file
+        MediaPlayer mp;
+
+        //copy raj.mp3 in any drawable folder
+        mp = MediaPlayer.create(this, R.drawable.om_mani_padme_om);
+
+        //start to play raj.mp3
+        mp.start();
+
+
     /*    AlarmManager alarmManager=(AlarmManager) getSystemService(ALARM_SERVICE);
         Intent intent = new Intent(MainActivity.this, AlarmReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, intent, 0);
         alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,System.currentTimeMillis(),alarmInterval, pendingIntent);*/
 
+        View.OnClickListener quitApp = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        };
+
+        exitButton.setOnClickListener(quitApp);
     }
 }
