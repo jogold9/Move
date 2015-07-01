@@ -19,13 +19,13 @@ public class MainActivity extends Activity {
         final Button exitButton = (Button) findViewById(R.id.exitButton);
 
         //MediaPlayer object is used to play a mp3 file
-        MediaPlayer mp;
+        final MediaPlayer player;
 
         //copy raj.mp3 in any drawable folder
-        mp = MediaPlayer.create(this, R.drawable.om_mani_padme_om);
+        player = MediaPlayer.create(this, R.drawable.om_mani_padme_om);
 
         //start to play raj.mp3
-        mp.start();
+        player.start();
 
 
     /*    AlarmManager alarmManager=(AlarmManager) getSystemService(ALARM_SERVICE);
@@ -33,9 +33,12 @@ public class MainActivity extends Activity {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, intent, 0);
         alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,System.currentTimeMillis(),alarmInterval, pendingIntent);*/
 
+        //stops the music when exiting the app
+
         View.OnClickListener quitApp = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                player.stop();
                 finish();
             }
         };
