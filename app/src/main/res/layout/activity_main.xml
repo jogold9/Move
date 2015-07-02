@@ -8,10 +8,12 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/buttons"
         android:text="Exit"
         android:textAllCaps="false"
         android:id="@+id/exitButton"
+        android:alpha="0.40"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="52dp"/>
+        android:layout_marginBottom="30dp"/>
 </RelativeLayout>
