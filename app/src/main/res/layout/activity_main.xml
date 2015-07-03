@@ -5,15 +5,27 @@
                 tools:context=".MainActivity"
                 android:background="@drawable/ancient_art">
 
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/buttons"
+        android:alpha="0.50"
+        android:text=" Move Reminders"
+        android:id="@+id/Reminders_On_Off_Switch"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"/>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/buttons"
+        android:alpha="0.50"
         android:text="Exit"
         android:textAllCaps="false"
         android:id="@+id/exitButton"
-        android:alpha="0.40"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="30dp"/>
+
 </RelativeLayout>

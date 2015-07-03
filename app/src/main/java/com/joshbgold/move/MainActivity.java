@@ -27,12 +27,6 @@ public class MainActivity extends Activity {
         //start to play raj.mp3
         player.start();
 
-
-    /*    AlarmManager alarmManager=(AlarmManager) getSystemService(ALARM_SERVICE);
-        Intent intent = new Intent(MainActivity.this, AlarmReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, intent, 0);
-        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,System.currentTimeMillis(),alarmInterval, pendingIntent);*/
-
         //stops the music when exiting the app
 
         View.OnClickListener quitApp = new View.OnClickListener() {
