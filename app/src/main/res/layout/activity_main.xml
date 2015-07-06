@@ -12,7 +12,8 @@
         android:background="@drawable/buttons"
         android:alpha="0.50"
         android:text=" Move Reminders"
-        android:id="@+id/Reminders_On_Off_Switch"
+        android:id="@+id/On_Off_Switch"
+        android:checked="true"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"/>
 
