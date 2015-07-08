@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -43,22 +44,34 @@ public class AlarmActivity extends Activity {
         alarmTextView = (TextView) findViewById(R.id.alarmText);
         ToggleButton alarmToggle = (ToggleButton) findViewById(R.id.alarmToggle);
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-
-        //MediaPlayer object is used to play a mp3 file
-        //final MediaPlayer player;
         final Button exitButton = (Button) findViewById(R.id.exitButton);
 
-        //This code block handles the audio for this activity (but not for reminders)
-        //player = MediaPlayer.create(this, R.drawable.om_mani_short);
-       // player.start();
+        final MediaPlayer mediaPlayer = MediaPlayer.create(this, R.drawable.om_mani_short);
 
-        final PlayAudio musicPlayer = new PlayAudio();
-        musicPlayer.play();
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+            @Override
+            public void onCompletion(MediaPlayer mediaplayer) {
+                mediaplayer.stop();
+                mediaplayer.release();
+            }
+        });
+
+        mediaPlayer.start();
 
         View.OnClickListener quitApp = new View.OnClickListener() {  //this block stops music when exiting
             @Override
             public void onClick(View view) {
-                musicPlayer.stop();
+
+                if (mediaPlayer != null) try {
+                    if (mediaPlayer.isPlaying()) {
+                        mediaPlayer.stop();
+                        mediaPlayer.release();
+                    }
+                } catch (Exception e) {
+                    Log.d("Alarm Activity", e.toString());
+                }
+
                 finish();
             }
         };

@@ -15,25 +15,23 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
 
     @Override
     public void onReceive(final Context context, Intent intent) {
-
-        //MediaPlayer object is used to play a mp3 file
-        final MediaPlayer player;
-
         //this will update the UI with message
         AlarmActivity inst = AlarmActivity.instance();
-        inst.setAlarmText("Go outside.");
+        inst.setAlarmText("stretch");
 
-   /*   //this will sound the alarm audio once
-        Uri alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-        if (alarmUri == null) {
-             alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        }
-        Ringtone ringtone = RingtoneManager.getRingtone(context, alarmUri);
-        ringtone.play();*/
+        //MediaPlayer is used to play an mp3 file
+        final MediaPlayer mediaPlayer = MediaPlayer.create(context, R.drawable.om_mani_short);
 
-        //Call music to be played
-        PlayAudio musicPlayer = new PlayAudio();
-        musicPlayer.play();
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+            @Override
+            public void onCompletion(MediaPlayer mediaplayer) {
+                mediaplayer.stop();
+                mediaplayer.release();
+            }
+        });
+
+        mediaPlayer.start();
 
         //this will send a notification message
         ComponentName comp = new ComponentName(context.getPackageName(),
@@ -41,6 +39,4 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
         startWakefulService(context, (intent.setComponent(comp)));
         setResultCode(Activity.RESULT_OK);
     }
-
-
 }

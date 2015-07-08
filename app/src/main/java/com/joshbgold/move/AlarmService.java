@@ -20,7 +20,7 @@ public class AlarmService extends IntentService {
 
     @Override
     public void onHandleIntent(Intent intent) {
-        sendNotification("Go outside.");
+        sendNotification("stretch");
     }
 
     private void sendNotification(String msg) {
@@ -32,7 +32,7 @@ public class AlarmService extends IntentService {
                 new Intent(this, AlarmActivity.class), 0);
 
         NotificationCompat.Builder alarmNotificationBuilder = new NotificationCompat.Builder(
-                this).setContentTitle("Alarm").setSmallIcon(R.mipmap.ic_launcher)
+                this).setContentTitle("Reminder").setSmallIcon(R.mipmap.ic_launcher)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(msg))
                 .setContentText(msg);
 
