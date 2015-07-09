@@ -3,7 +3,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 tools:context=".MainActivity"
-                android:background="@drawable/ancient_art_hike_light"
+                android:background="@drawable/ancient_art_hike"
                 >
 
     <TimePicker
@@ -11,7 +11,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/alarmTimePicker"
         android:layout_above="@+id/alarmToggle"
-        android:layout_alignParentRight="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/buttons"
+        android:alpha="0.50"
         />
 
     <ToggleButton
@@ -23,12 +26,12 @@
         android:id="@+id/alarmToggle"
         android:onClick="onToggleClicked"
         android:checked="false"
-        android:layout_above="@+id/alarmText"
+        android:layout_above="@+id/exitButton"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
         />
 
-    <TextView
+<!--    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -36,7 +39,7 @@
         android:id="@+id/alarmText"
         android:layout_above="@+id/exitButton"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginBottom="10dp" />-->
 
     <Button
         android:layout_width="wrap_content"

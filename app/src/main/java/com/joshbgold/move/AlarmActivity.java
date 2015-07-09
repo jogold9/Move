@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -26,7 +25,7 @@ public class AlarmActivity extends Activity {
     private PendingIntent pendingIntent;
     private TimePicker alarmTimePicker;
     //private static AlarmActivity inst;
-    private TextView alarmTextView;
+    //private TextView alarmTextView;
 
 /*    @Override
     public void onStart() {
@@ -39,7 +38,7 @@ public class AlarmActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         alarmTimePicker = (TimePicker) findViewById(R.id.alarmTimePicker);
-        alarmTextView = (TextView) findViewById(R.id.alarmText);
+        //alarmTextView = (TextView) findViewById(R.id.alarmText);
         ToggleButton alarmToggle = (ToggleButton) findViewById(R.id.alarmToggle);
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         final Button exitButton = (Button) findViewById(R.id.exitButton);
@@ -79,7 +78,7 @@ public class AlarmActivity extends Activity {
 
     public void onToggleClicked(View view) {
         if (((ToggleButton) view).isChecked()) {
-            Log.d("MyActivity", "Alarm On");
+            //Log.d("MyActivity", "Alarm On");
             Calendar calendar = Calendar.getInstance();
             calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getCurrentHour());
             calendar.set(Calendar.MINUTE, alarmTimePicker.getCurrentMinute());
@@ -91,13 +90,13 @@ public class AlarmActivity extends Activity {
 
         } else {
             alarmManager.cancel(pendingIntent);
-            setAlarmText("");
-            Log.d("MyActivity", "Alarm Off");
+            //setAlarmText("");
+            //Log.d("MyActivity", "Alarm Off");
             Toast.makeText(AlarmActivity.this, "Your reminder(s) are off.", Toast.LENGTH_LONG).show();
         }
     }
 
-    public void setAlarmText(String alarmText) {
+/*    public void setAlarmText(String alarmText) {
         alarmTextView.setText(alarmText);
-    }
+    }*/
 }
