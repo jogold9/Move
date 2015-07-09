@@ -11,12 +11,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import java.util.Calendar;
 
 /**
  * Created by JoshG on 7/6/2015.
+ * Based on code from http://javapapers.com/android/android-alarm-clock-tutorial/
  */
 public class AlarmActivity extends Activity {
 
@@ -84,10 +86,14 @@ public class AlarmActivity extends Activity {
             Intent myIntent = new Intent(AlarmActivity.this, AlarmReceiver.class);
             pendingIntent = PendingIntent.getBroadcast(AlarmActivity.this, 0, myIntent, 0);
             alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
+
+            Toast.makeText(AlarmActivity.this, "Your reminder(s) are set!", Toast.LENGTH_LONG).show();
+
         } else {
             alarmManager.cancel(pendingIntent);
             setAlarmText("");
             Log.d("MyActivity", "Alarm Off");
+            Toast.makeText(AlarmActivity.this, "Your reminder(s) are off.", Toast.LENGTH_LONG).show();
         }
     }
 

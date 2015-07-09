@@ -3,17 +3,14 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 tools:context=".MainActivity"
-                android:background="@drawable/ancient_art">
+                android:background="@drawable/ancient_art_light">
 
     <TimePicker
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/alarmTimePicker"
         android:layout_above="@+id/alarmToggle"
-        android:layout_alignParentRight="true"
-        android:numbersTextColor="@android:color/white"
-        android:numbersSelectorColor="@android:color/white"
-        android:amPmTextColor="@android:color/white"/>
+        android:layout_alignParentRight="true"/>
 
     <ToggleButton
         android:layout_width="wrap_content"
