@@ -23,18 +23,14 @@ public class AlarmActivity extends Activity {
     AlarmManager alarmManager;
     private PendingIntent pendingIntent;
     private TimePicker alarmTimePicker;
-    private static AlarmActivity inst;
+    //private static AlarmActivity inst;
     private TextView alarmTextView;
 
-    public static AlarmActivity instance() {
-        return inst;
-    }
-
-    @Override
+/*    @Override
     public void onStart() {
         super.onStart();
         inst = this;
-    }
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
