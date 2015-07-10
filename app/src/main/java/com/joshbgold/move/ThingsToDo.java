@@ -9,8 +9,8 @@ public class ThingsToDo {
 
     //actions to do
     public String [] ThingsToDoArray = {
-            "Stretch.", "Reach as high as possible overhead, then reach & touch your toes (or as close as you can).  Repeat four times.", "Go " +
-            "outside", "Walk around the block.", "Take nine slow deep breaths", "Walk around the block twice."
+            "Reach towards the sky, then reach & touch your toes (or as close as you can).  Repeat four times.", "Go " +
+            "outside", "Walk around the block.", "Take nine slow deep breaths", "Take 7 seven slow deep breaths", "Walk around the block twice."
     };
 
     public String getThingToDo(){

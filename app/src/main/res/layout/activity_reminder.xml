@@ -5,6 +5,20 @@
                 tools:context=".MainActivity"
                 android:background="@drawable/ancient_art">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/buttons"
+        android:alpha="0.50"
+        android:text="Lorem Ipsum"
+        android:id="@+id/doThisThing"
+        android:textAllCaps="false"
+        android:textSize="30dp"
+        android:padding="10dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"/>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,5 +30,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"/>
+
+
 
 </RelativeLayout>
