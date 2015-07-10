@@ -15,7 +15,16 @@ public class Quotations {
         "“I think the best evenings are when we have messages, things that make us think, but we can also laugh and enjoy each other's company.” - " +
                 "Jane Goodall",
         "“Our prime purpose in this life is to help others. And if you can't help them, at least don't hurt them.” - The 14th Dalai Lama",
-        "“Do not pray for an easy life, pray for the strength to endure a difficult one.” - Bruce Lee"
+        "“Do not pray for an easy life, pray for the strength to endure a difficult one.” - Bruce Lee",
+        "“To give anything less than your best, is to sacrifice the gift.” - Steve Prefontaine",
+        "“I was taught that the way of progress was neither swift nor easy.” - Marie Curie",
+        "“I am determined to be cheerful and happy in whatever situation I may find myself.”  - Martha Washington",
+        "“Dwell on the beauty of life. Watch the stars, and see yourself running with them.” ― Marcus Aurelius",
+        "“An onion can make people cry, but there has never been a vegetable invented to make them laugh.” - Will Rogers",
+        "“There is no such joy in the tavern as upon the road thereto.” - Cormac McCarthy",
+        "“If you want one thing too much it's likely to be a disappointment. The healthy way is to learn to like the everyday things...” - Larry " +
+                "McMurtry",
+        "“There is no bad weather, only inappropriate clothing.” - Sir Ranalph Fiennes"
 
     };
 
