@@ -24,6 +24,18 @@
         android:layout_height="wrap_content"
         android:background="@drawable/buttons"
         android:alpha="0.50"
+        android:text="Cancel all alarms"
+        android:textAllCaps="false"
+        android:id="@+id/cancelAllButton"
+        android:layout_above="@+id/exitButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/buttons"
+        android:alpha="0.50"
         android:text="Exit"
         android:textAllCaps="false"
         android:id="@+id/exitButton"

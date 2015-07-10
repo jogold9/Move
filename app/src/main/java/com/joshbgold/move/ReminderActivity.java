@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class ReminderActivity extends Activity {
@@ -22,6 +23,7 @@ public class ReminderActivity extends Activity {
 
         DoTheThing = (TextView) findViewById(R.id.doThisThing);
         //alarmTextView = (TextView) findViewById(R.id.alarmText);
+        final Button cancelAllButton = (Button) findViewById(R.id.cancelAllButton);
         final Button exitButton = (Button) findViewById(R.id.exitButton);
 
         //MediaPlayer is used to play an mp3 file
@@ -43,6 +45,16 @@ public class ReminderActivity extends Activity {
         doThis = thing.getThingToDo();
         DoTheThing.setText(doThis);
 
+        //cancel all alarms
+        View.OnClickListener cancelAll = new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                AlarmActivity alarm = new AlarmActivity();
+                alarm.cancel();
+                Toast.makeText(ReminderActivity.this, "Alarm Canceled", Toast.LENGTH_LONG).show();
+            }
+        };
+
         View.OnClickListener quitApp = new View.OnClickListener() {  //this block stops music when exiting
             @Override
             public void onClick(View view) {
@@ -60,6 +72,7 @@ public class ReminderActivity extends Activity {
             }
         };
 
+        cancelAllButton.setOnClickListener(cancelAll);
         exitButton.setOnClickListener(quitApp);
 
 
@@ -72,7 +85,7 @@ public class ReminderActivity extends Activity {
                 doThis = quotations.getQuote();
                 DoTheThing.setText(doThis);
             }
-        }, 10000);  //equivalent to ten seconds
+        }, 12000);  //equivalent to ten seconds
     }
 
 }
