@@ -5,7 +5,9 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TimePicker;
@@ -23,8 +25,9 @@ public class AlarmActivity extends Activity {
     AlarmManager alarmManager;
     private static PendingIntent pendingIntent;
     private TimePicker alarmTimePicker;
-    private int repeatingInterval = 1000*60*5; //repeat alarm every 5 minutes
+    private int repeatingInterval = 1000*60*2; //repeat alarm every 2 minutes
     boolean repeat = true;
+    private static Context context;
 
     public AlarmActivity() {
 
@@ -39,9 +42,35 @@ public class AlarmActivity extends Activity {
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         final Button exitButton = (Button) findViewById(R.id.exitButton);
 
+        AlarmActivity.context = getApplicationContext();  //needed to be able to cancel alarm from another activity
+
+        //MediaPlayer is used to play an mp3 file
+        final MediaPlayer mediaPlayer = MediaPlayer.create(this, R.drawable.om_mani_short);
+
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+            @Override
+            public void onCompletion(MediaPlayer mediaplayer) {
+                mediaplayer.stop();
+                mediaplayer.release();
+            }
+        });
+
+        mediaPlayer.start();
+
         View.OnClickListener quitApp = new View.OnClickListener() {  //this block stops music when exiting
             @Override
             public void onClick(View view) {
+
+                if (mediaPlayer != null) try {
+                    if (mediaPlayer.isPlaying()) {
+                        mediaPlayer.stop();
+                        mediaPlayer.release();
+                    }
+                } catch (Exception e) {
+                    Log.d("Alarm Activity", e.toString());
+                }
+
                 finish();
             }
         };
@@ -67,17 +96,15 @@ public class AlarmActivity extends Activity {
             INTERVAL DAY, INTERVAL_HOUR, INTERVAL_HALF_HOUR, INTERVAL_FIFTEEN_MINUTES*/
             //alarmManager.setInexactRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), repeatingInterval, pendingIntent);
 
-            Toast.makeText(AlarmActivity.this, "Your reminder(s) are set!", Toast.LENGTH_LONG).show();
+            Toast.makeText(AlarmActivity.this, "Your reminder(s) are set!", Toast.LENGTH_SHORT).show();
 
         } else {
             alarmManager.cancel(pendingIntent);
-            Toast.makeText(AlarmActivity.this, "Your reminder(s) are off.", Toast.LENGTH_LONG).show();
+            Toast.makeText(AlarmActivity.this, "Your reminder(s) are off.", Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void cancel() {
-        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        manager.cancel(pendingIntent);
+    public static Context getAppContext(){
+        return AlarmActivity.context;
     }
-
 }

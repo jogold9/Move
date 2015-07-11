@@ -1,6 +1,9 @@
 package com.joshbgold.move;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,6 +18,8 @@ public class ReminderActivity extends Activity {
 
     private TextView DoTheThing;
     private String doThis = "";
+    private static PendingIntent pendingIntent;
+    AlarmManager alarmManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +54,14 @@ public class ReminderActivity extends Activity {
         View.OnClickListener cancelAll = new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                AlarmActivity alarm = new AlarmActivity();
-                alarm.cancel();
+
+                AlarmActivity.getAppContext();
+                Intent intent = new Intent(getBaseContext(), AlarmReceiver.class);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(), 0, intent, 0);
+                alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+                alarmManager.cancel(pendingIntent);
+
+
                 Toast.makeText(ReminderActivity.this, "Alarm Canceled", Toast.LENGTH_LONG).show();
             }
         };
