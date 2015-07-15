@@ -3,10 +3,12 @@ package com.joshbgold.move;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -33,6 +35,12 @@ public class ReminderActivity extends Activity {
 
         //MediaPlayer is used to play an mp3 file
         final MediaPlayer mediaPlayer = MediaPlayer.create(this, R.drawable.om_mani_short);
+
+        //vibrate the device for 1/2 second if the device is capable
+        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        if(vibrator.hasVibrator()) {
+            vibrator.vibrate(500);
+        }
 
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
 
@@ -87,7 +95,7 @@ public class ReminderActivity extends Activity {
         exitButton.setOnClickListener(quitApp);
 
 
-        //this code block does 5 second delay before executing
+        //this code block allows for a delay before executing
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
@@ -96,7 +104,7 @@ public class ReminderActivity extends Activity {
                 doThis = quotations.getQuote();
                 DoTheThing.setText(doThis);
             }
-        }, 12000);  //equivalent to ten seconds
+        }, 20000);  //equivalent to twenty seconds
     }
 
 }
