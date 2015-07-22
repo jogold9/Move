@@ -21,13 +21,15 @@
         android:layout_height="wrap_content"
         android:background="@drawable/buttons"
         android:alpha="0.50"
-        android:text=" Move Reminders"
         android:id="@+id/alarmToggle"
         android:onClick="onToggleClicked"
         android:checked="false"
         android:layout_above="@+id/settingsButton"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
+        android:textOff=" Reminders: Off "
+        android:textOn=" Reminders: On "
+        android:textAllCaps="false"
         />
 
 <!--    <TextView

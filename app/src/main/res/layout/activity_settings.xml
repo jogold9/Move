@@ -5,89 +5,17 @@
                 tools:context=".MainActivity"
                 android:background="@drawable/ancient_art">
 
-    <CheckBox
+
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sunday"
-        android:id="@+id/sundayCheckBox"
-        android:layout_alignParentTop="true"
+        android:background="@drawable/buttons"
+        android:alpha="0.50"
+        android:textAllCaps="false"
+        android:text=" Choose Reminder Days "
+        android:id="@+id/chooseDaysButton"
+        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="126dp"
-        android:background="@drawable/buttons"
-        android:alpha="0.50"
-        android:textAllCaps="false"
-        android:layout_marginBottom="5dp"/>
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Monday"
-        android:id="@+id/mondayCheckBox"
-        android:layout_below="@+id/sundayCheckBox"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/buttons"
-        android:alpha="0.50"
-        android:textAllCaps="false"
-        android:layout_marginBottom="5dp"/>
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Tuesday"
-        android:id="@+id/tuesdayCheckBox"
-        android:layout_below="@+id/mondayCheckBox"
-        android:layout_alignLeft="@+id/mondayCheckBox"
-        android:background="@drawable/buttons"
-        android:alpha="0.50"
-        android:textAllCaps="false"
-        android:layout_marginBottom="5dp"/>
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Wednesday"
-        android:id="@+id/wednesdayCheckBox"
-        android:layout_below="@+id/tuesdayCheckBox"
-        android:layout_alignLeft="@+id/tuesdayCheckBox"
-        android:background="@drawable/buttons"
-        android:alpha="0.50"
-        android:textAllCaps="false"
-        android:layout_marginBottom="5dp"/>
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Thursday"
-        android:id="@+id/thursdayCheckbox"
-        android:layout_below="@+id/wednesdayCheckBox"
-        android:layout_alignLeft="@+id/wednesdayCheckBox"
-        android:background="@drawable/buttons"
-        android:alpha="0.50"
-        android:textAllCaps="false"
-        android:layout_marginBottom="5dp"/>
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Friday"
-        android:id="@+id/fridayCheckbox"
-        android:layout_below="@+id/thursdayCheckbox"
-        android:layout_alignLeft="@+id/thursdayCheckbox"
-        android:background="@drawable/buttons"
-        android:alpha="0.50"
-        android:textAllCaps="false"
-        android:layout_marginBottom="5dp"/>
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Saturday"
-        android:id="@+id/saturdayCheckbox"
-        android:layout_below="@+id/fridayCheckbox"
-        android:layout_alignLeft="@+id/fridayCheckbox"
-        android:background="@drawable/buttons"
-        android:alpha="0.50"
-        android:textAllCaps="false"
         android:layout_marginBottom="5dp"/>
 
     <Button
@@ -96,9 +24,11 @@
         android:background="@drawable/buttons"
         android:alpha="0.50"
         android:textAllCaps="false"
-        android:text="Exit"
-        android:id="@+id/exitButton"
+        android:text="Back"
+        android:id="@+id/backButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"/>
+
+
 </RelativeLayout>
