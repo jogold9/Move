@@ -69,6 +69,15 @@ public class ReminderActivity extends Activity {
                 alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
                 alarmManager.cancel(pendingIntent);
 
+                if (mediaPlayer != null) try {
+                    if (mediaPlayer.isPlaying()) {
+                        mediaPlayer.stop();
+                        mediaPlayer.release();
+                    }
+                } catch (Exception e) {
+                    Log.d("Alarm Activity", e.toString());
+                }
+
 
                 Toast.makeText(ReminderActivity.this, "Alarm Canceled", Toast.LENGTH_LONG).show();
             }

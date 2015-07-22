@@ -25,7 +25,7 @@
         android:id="@+id/alarmToggle"
         android:onClick="onToggleClicked"
         android:checked="false"
-        android:layout_above="@+id/exitButton"
+        android:layout_above="@+id/settingsButton"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
         />
@@ -39,6 +39,18 @@
         android:layout_above="@+id/exitButton"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp" />-->
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/buttons"
+        android:alpha="0.50"
+        android:text="Settings"
+        android:textAllCaps="false"
+        android:id="@+id/settingsButton"
+        android:layout_above="@+id/exitButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"/>
 
     <Button
         android:layout_width="wrap_content"

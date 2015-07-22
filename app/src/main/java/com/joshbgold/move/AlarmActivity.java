@@ -40,6 +40,7 @@ public class AlarmActivity extends Activity {
         alarmTimePicker = (TimePicker) findViewById(R.id.alarmTimePicker);
         ToggleButton alarmToggle = (ToggleButton) findViewById(R.id.alarmToggle);
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        final Button settingsButton = (Button) findViewById(R.id.settingsButton);
         final Button exitButton = (Button) findViewById(R.id.exitButton);
 
         AlarmActivity.context = getApplicationContext();  //needed to be able to cancel alarm from another activity
@@ -58,6 +59,13 @@ public class AlarmActivity extends Activity {
 
         mediaPlayer.start();
 
+        View.OnClickListener goToSettings = new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                openSettings();
+            }
+        };
+
         View.OnClickListener quitApp = new View.OnClickListener() {  //this block stops music when exiting
             @Override
             public void onClick(View view) {
@@ -75,6 +83,7 @@ public class AlarmActivity extends Activity {
             }
         };
 
+        settingsButton.setOnClickListener(goToSettings);
         exitButton.setOnClickListener(quitApp);
     }
 
@@ -106,5 +115,10 @@ public class AlarmActivity extends Activity {
 
     public static Context getAppContext(){
         return AlarmActivity.context;
+    }
+
+    void openSettings() {
+        Intent intent = new Intent(AlarmActivity.this, SettingsActivity.class);
+        startActivity(intent);
     }
 }
