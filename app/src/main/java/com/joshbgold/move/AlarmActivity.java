@@ -89,6 +89,7 @@ public class AlarmActivity extends Activity {
 
     public void onToggleClicked(View view) {
         if (((ToggleButton) view).isChecked()) {
+
             Calendar calendar = Calendar.getInstance();
             calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getCurrentHour());
             calendar.set(Calendar.MINUTE, alarmTimePicker.getCurrentMinute());
@@ -121,4 +122,5 @@ public class AlarmActivity extends Activity {
         Intent intent = new Intent(AlarmActivity.this, SettingsActivity.class);
         startActivity(intent);
     }
+
 }

@@ -115,5 +115,4 @@ public class ReminderActivity extends Activity {
             }
         }, 20000);  //equivalent to twenty seconds
     }
-
 }
