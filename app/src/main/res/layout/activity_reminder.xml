@@ -19,17 +19,21 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"/>
 
-    <Button
+    <ToggleButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/buttons"
         android:alpha="0.50"
-        android:text="Cancel all alarms"
+        android:onClick="onToggleClicked"
+        android:checked="false"
+        android:textOff=" Show Moves "
+        android:textOn=" Show Quote "
         android:textAllCaps="false"
-        android:id="@+id/cancelAllButton"
+        android:id="@+id/backButton"
         android:layout_above="@+id/exitButton"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="10dp"
+        android:visibility="invisible"/>
 
     <Button
         android:layout_width="wrap_content"

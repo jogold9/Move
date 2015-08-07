@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,13 +12,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.ToggleButton;
 
 
 public class ReminderActivity extends Activity {
 
-    private TextView DoTheThing;
-    private String doThis = "";
+    private TextView movesAndQuotesTextView;
+    private String movesString = "";
+    private String quoteString = "";
+    private String lastMovesInstruction ="";
     private static PendingIntent pendingIntent;
     AlarmManager alarmManager;
 
@@ -28,9 +29,9 @@ public class ReminderActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder);
 
-        DoTheThing = (TextView) findViewById(R.id.doThisThing);
+        movesAndQuotesTextView = (TextView) findViewById(R.id.doThisThing);
         //alarmTextView = (TextView) findViewById(R.id.alarmText);
-        final Button cancelAllButton = (Button) findViewById(R.id.cancelAllButton);
+        final Button backButton = (Button) findViewById(R.id.backButton);
         final Button exitButton = (Button) findViewById(R.id.exitButton);
 
         //MediaPlayer is used to play an mp3 file
@@ -55,33 +56,18 @@ public class ReminderActivity extends Activity {
 
         //Puts random move instruction into text view (i.e. breathe, stretch, go outside, etc).
         ThingsToDo thing = new ThingsToDo();
-        doThis = thing.getThingToDo();
-        DoTheThing.setText(doThis);
+        movesString = thing.getThingToDo();
+        lastMovesInstruction = movesString; //store for later use for back button
+        movesAndQuotesTextView.setText(movesString);
 
-        //cancel all alarms
-        View.OnClickListener cancelAll = new View.OnClickListener(){
+/*        //hide quote and show moves instructions again
+        View.OnClickListener goBack = new View.OnClickListener(){
             @Override
-            public void onClick(View view){
-
-                AlarmActivity.getAppContext();
-                Intent intent = new Intent(getBaseContext(), AlarmReceiver.class);
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(), 0, intent, 0);
-                alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-                alarmManager.cancel(pendingIntent);
-
-                if (mediaPlayer != null) try {
-                    if (mediaPlayer.isPlaying()) {
-                        mediaPlayer.stop();
-                        mediaPlayer.release();
-                    }
-                } catch (Exception e) {
-                    Log.d("Alarm Activity", e.toString());
-                }
-
-
-                Toast.makeText(ReminderActivity.this, "Alarm Canceled", Toast.LENGTH_LONG).show();
+            public void onClick (View view){
+                movesAndQuotesTextView.setText(lastMovesInstruction);
             }
-        };
+        };*/
+
 
         View.OnClickListener quitApp = new View.OnClickListener() {  //this block stops music when exiting
             @Override
@@ -100,7 +86,9 @@ public class ReminderActivity extends Activity {
             }
         };
 
-        cancelAllButton.setOnClickListener(cancelAll);
+
+
+//        backButton.setOnClickListener(goBack);
         exitButton.setOnClickListener(quitApp);
 
 
@@ -108,11 +96,24 @@ public class ReminderActivity extends Activity {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-                //fade in quote to the text edit to replace the previous instructions after 10 seconds
+                //fade in quote to the text edit to replace the previous instructions after 20 seconds
                 Quotations quotations = new Quotations();
-                doThis = quotations.getQuote();
-                DoTheThing.setText(doThis);
+                quoteString = quotations.getQuote();
+                movesAndQuotesTextView.setText(quoteString);
+                backButton.setVisibility(View.VISIBLE);
             }
         }, 20000);  //equivalent to twenty seconds
+
+
+
+    }
+
+    public void onToggleClicked(View view){
+        if (((ToggleButton) view).isChecked()) {
+            movesAndQuotesTextView.setText(lastMovesInstruction);
+
+        } else {
+            movesAndQuotesTextView.setText(quoteString);
+        }
     }
 }

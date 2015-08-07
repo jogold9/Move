@@ -41,6 +41,7 @@ public class AlarmActivity extends Activity {
         ToggleButton alarmToggle = (ToggleButton) findViewById(R.id.alarmToggle);
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         final Button settingsButton = (Button) findViewById(R.id.settingsButton);
+        final Button cancelAllButton = (Button) findViewById(R.id.cancelAllButton);
         final Button exitButton = (Button) findViewById(R.id.exitButton);
 
         AlarmActivity.context = getApplicationContext();  //needed to be able to cancel alarm from another activity
@@ -66,6 +67,31 @@ public class AlarmActivity extends Activity {
             }
         };
 
+        //cancel all alarms
+        View.OnClickListener cancelAll = new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+
+                AlarmActivity.getAppContext();
+                Intent intent = new Intent(getBaseContext(), AlarmReceiver.class);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(), 0, intent, 0);
+                alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+                alarmManager.cancel(pendingIntent);
+
+                if (mediaPlayer != null) try {
+                    if (mediaPlayer.isPlaying()) {
+                        mediaPlayer.stop();
+                        mediaPlayer.release();
+                    }
+                } catch (Exception e) {
+                    Log.d("Alarm Activity", e.toString());
+                }
+
+
+                Toast.makeText(AlarmActivity.this, "Alarms Canceled", Toast.LENGTH_LONG).show();
+            }
+        };
+
         View.OnClickListener quitApp = new View.OnClickListener() {  //this block stops music when exiting
             @Override
             public void onClick(View view) {
@@ -84,6 +110,7 @@ public class AlarmActivity extends Activity {
         };
 
         settingsButton.setOnClickListener(goToSettings);
+        cancelAllButton.setOnClickListener(cancelAll);
         exitButton.setOnClickListener(quitApp);
     }
 
