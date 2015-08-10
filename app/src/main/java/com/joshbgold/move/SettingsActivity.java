@@ -15,12 +15,20 @@ public class SettingsActivity extends Activity {
         setContentView(R.layout.activity_settings);
 
         final Button chooseDaysButton = (Button) findViewById(R.id.chooseDaysButton);
+        final Button chooseVolumeButton = (Button) findViewById(R.id.setReminderVolume);
         final Button backButton = (Button) findViewById(R.id.backButton);
 
         View.OnClickListener chooseDays = new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 openChooseDaysActivity();
+            }
+        };
+
+        View.OnClickListener setVolume = new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                launchSetVolumeActivity();
             }
         };
 
@@ -32,13 +40,21 @@ public class SettingsActivity extends Activity {
         };
 
         chooseDaysButton.setOnClickListener(chooseDays);
+        chooseVolumeButton.setOnClickListener(setVolume);
         backButton.setOnClickListener(goBack);
 
     }
+
+    void launchSetVolumeActivity(){
+        Intent intent = new Intent(SettingsActivity.this, SetVolumeActivity.class);
+        startActivity(intent);
+    }
+
 
     void openChooseDaysActivity(){
         Intent intent = new Intent(SettingsActivity.this, ChooseDays.class);
         startActivity(intent);
     }
+
 
 }

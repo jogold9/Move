@@ -4,14 +4,17 @@ import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Vibrator;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 
@@ -22,7 +25,10 @@ public class ReminderActivity extends Activity {
     private String quoteString = "";
     private String lastMovesInstruction ="";
     private static PendingIntent pendingIntent;
+    private float volume;
+    private float volumePercent;
     AlarmManager alarmManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +66,11 @@ public class ReminderActivity extends Activity {
         lastMovesInstruction = movesString; //store for later use for back button
         movesAndQuotesTextView.setText(movesString);
 
+        volume = loadPreferences("volume", volume); //gets the current volume
+        volumePercent = volume * 100;
+
+        Toast.makeText(ReminderActivity.this, "Audio volume is set to: " + volumePercent + " %", Toast.LENGTH_LONG).show();
+
 /*        //hide quote and show moves instructions again
         View.OnClickListener goBack = new View.OnClickListener(){
             @Override
@@ -67,7 +78,6 @@ public class ReminderActivity extends Activity {
                 movesAndQuotesTextView.setText(lastMovesInstruction);
             }
         };*/
-
 
         View.OnClickListener quitApp = new View.OnClickListener() {  //this block stops music when exiting
             @Override
@@ -115,5 +125,12 @@ public class ReminderActivity extends Activity {
         } else {
             movesAndQuotesTextView.setText(quoteString);
         }
+    }
+
+    //get prefs
+    private float loadPreferences(String key, float value){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        float data = sharedPreferences.getFloat(key, value);
+        return data;
     }
 }

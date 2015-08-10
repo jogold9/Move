@@ -12,7 +12,7 @@
         android:background="@drawable/buttons"
         android:alpha="0.50"
         android:textAllCaps="false"
-        android:text=" Choose Reminder Days "
+        android:text=" Set Reminder Days "
         android:id="@+id/chooseDaysButton"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
@@ -24,9 +24,21 @@
         android:background="@drawable/buttons"
         android:alpha="0.50"
         android:textAllCaps="false"
-        android:text=" Choose Movements"
+        android:text=" Set Movements "
         android:id="@+id/chooseMovementsButton"
         android:layout_below="@+id/chooseDaysButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/buttons"
+        android:alpha="0.50"
+        android:textAllCaps="false"
+        android:text=" Set Reminder Volume "
+        android:id="@+id/setReminderVolume"
+        android:layout_below="@+id/chooseMovementsButton"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="5dp"/>
 
