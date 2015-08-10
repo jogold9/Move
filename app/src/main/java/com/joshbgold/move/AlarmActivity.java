@@ -28,6 +28,7 @@ public class AlarmActivity extends Activity {
     private int repeatingInterval = 1000*60*2; //repeat alarm every 2 minutes
     boolean repeat = true;
     private static Context context;
+    private final float mediaPlayerVolume = (float)0.3;
 
     public AlarmActivity() {
 
@@ -58,6 +59,7 @@ public class AlarmActivity extends Activity {
             }
         });
 
+        mediaPlayer.setVolume(mediaPlayerVolume, mediaPlayerVolume); //sets volume for left & right speakers / headphones
         mediaPlayer.start();
 
         View.OnClickListener goToSettings = new View.OnClickListener(){

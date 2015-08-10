@@ -1,7 +1,6 @@
 package com.joshbgold.move;
 
 import android.app.Activity;
-import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -14,7 +13,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 
@@ -27,8 +25,7 @@ public class ReminderActivity extends Activity {
     private static PendingIntent pendingIntent;
     private float volume;
     private float volumePercent;
-    AlarmManager alarmManager;
-
+    private final static int MAX_VOLUME = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +33,6 @@ public class ReminderActivity extends Activity {
         setContentView(R.layout.activity_reminder);
 
         movesAndQuotesTextView = (TextView) findViewById(R.id.doThisThing);
-        //alarmTextView = (TextView) findViewById(R.id.alarmText);
         final Button backButton = (Button) findViewById(R.id.backButton);
         final Button exitButton = (Button) findViewById(R.id.exitButton);
 
@@ -58,6 +54,11 @@ public class ReminderActivity extends Activity {
             }
         });
 
+        volume = loadPreferences("volume", volume); //gets the current volume
+        volumePercent = volume * 100;
+        //Toast.makeText(ReminderActivity.this, "Audio volume is set to: " + volumePercent + " %", Toast.LENGTH_LONG).show();
+
+        mediaPlayer.setVolume(volume, volume); //sets right speaker volume and left speaker volume for mediaPlayer
         mediaPlayer.start();
 
         //Puts random move instruction into text view (i.e. breathe, stretch, go outside, etc).
@@ -65,19 +66,6 @@ public class ReminderActivity extends Activity {
         movesString = thing.getThingToDo();
         lastMovesInstruction = movesString; //store for later use for back button
         movesAndQuotesTextView.setText(movesString);
-
-        volume = loadPreferences("volume", volume); //gets the current volume
-        volumePercent = volume * 100;
-
-        Toast.makeText(ReminderActivity.this, "Audio volume is set to: " + volumePercent + " %", Toast.LENGTH_LONG).show();
-
-/*        //hide quote and show moves instructions again
-        View.OnClickListener goBack = new View.OnClickListener(){
-            @Override
-            public void onClick (View view){
-                movesAndQuotesTextView.setText(lastMovesInstruction);
-            }
-        };*/
 
         View.OnClickListener quitApp = new View.OnClickListener() {  //this block stops music when exiting
             @Override
