@@ -1,0 +1,49 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                tools:context=".MainActivity"
+                android:background="@drawable/ancient_art">
+
+
+    <EditText
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/repeatIntervalInMinutes"
+        android:layout_above="@+id/instructions"
+        android:layout_centerHorizontal="true"
+        android:textSize= "36dp"
+        android:inputType="text"
+        android:ems="10"
+        android:background="@drawable/buttons"
+        android:alpha="0.50"
+        android:layout_marginBottom="10dp"
+        android:maxLength="3"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/buttons"
+        android:alpha="0.50"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:hint=" Enter a value in minutes for how often you want the reminders to repeat. For a one-time alarm, you do not need to do anything here."
+        android:textColorHint="@android:color/black"
+        android:id="@+id/instructions"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:padding="10dp"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/buttons"
+        android:alpha="0.50"
+        android:textAllCaps="false"
+        android:text="Back"
+        android:id="@+id/backButton"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"/>
+
+</RelativeLayout>

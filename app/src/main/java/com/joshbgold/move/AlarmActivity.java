@@ -5,8 +5,10 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -25,7 +27,7 @@ public class AlarmActivity extends Activity {
     AlarmManager alarmManager;
     private static PendingIntent pendingIntent;
     private TimePicker alarmTimePicker;
-    private int repeatingInterval = 1000*60*2; //repeat alarm every 2 minutes
+    private int repeatingInterval = 0; //i.e. 1000*60*2 (1000 milliseconds * 60 seconds * 2 repeats alarm every two minutes)
     boolean repeat = true;
     private static Context context;
     private final float mediaPlayerVolume = (float)0.3;
@@ -125,15 +127,16 @@ public class AlarmActivity extends Activity {
             Intent myIntent = new Intent(AlarmActivity.this, AlarmReceiver.class);
             pendingIntent = PendingIntent.getBroadcast(AlarmActivity.this, 0, myIntent, 0);
 
-            //use this line if repeat == false
-            //alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
+            //Set a non-repeating alarm
+            if (repeatingInterval == 0) {
+                alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
+            }
 
-            //use this line if repeat == true
-            alarmManager.setRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), repeatingInterval, pendingIntent);
-
-            /* We could also use inexact repeating if user wants more variation, but can only use the following long constants
-            INTERVAL DAY, INTERVAL_HOUR, INTERVAL_HALF_HOUR, INTERVAL_FIFTEEN_MINUTES*/
-            //alarmManager.setInexactRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), repeatingInterval, pendingIntent);
+            //Set a repeating alarm
+            else {
+                repeatingInterval = LoadPreferences("repeatInterval", repeatingInterval);
+                alarmManager.setRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), repeatingInterval, pendingIntent);
+            }
 
             Toast.makeText(AlarmActivity.this, "Your reminder(s) are set!", Toast.LENGTH_SHORT).show();
 
@@ -150,6 +153,13 @@ public class AlarmActivity extends Activity {
     void openSettings() {
         Intent intent = new Intent(AlarmActivity.this, SettingsActivity.class);
         startActivity(intent);
+    }
+
+    //get prefs
+    private int LoadPreferences(String key, int value){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        int data = sharedPreferences.getInt(key, value);
+        return data;
     }
 
 }

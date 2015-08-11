@@ -48,6 +48,18 @@
         android:background="@drawable/buttons"
         android:alpha="0.50"
         android:textAllCaps="false"
+        android:text=" Set Repeating Interval "
+        android:id="@+id/setRepeat"
+        android:layout_below="@+id/setReminderVolume"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/buttons"
+        android:alpha="0.50"
+        android:textAllCaps="false"
         android:text="Back"
         android:id="@+id/backButton"
         android:layout_alignParentBottom="true"

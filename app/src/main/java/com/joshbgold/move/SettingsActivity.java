@@ -16,6 +16,7 @@ public class SettingsActivity extends Activity {
 
         final Button chooseDaysButton = (Button) findViewById(R.id.chooseDaysButton);
         final Button chooseVolumeButton = (Button) findViewById(R.id.setReminderVolume);
+        final Button setRepeatingInterval = (Button) findViewById(R.id.setRepeat);
         final Button backButton = (Button) findViewById(R.id.backButton);
 
         View.OnClickListener chooseDays = new View.OnClickListener(){
@@ -32,6 +33,13 @@ public class SettingsActivity extends Activity {
             }
         };
 
+        View.OnClickListener repeatInterval = new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                launchRepeatIntervalActivity();
+            }
+        };
+
         View.OnClickListener goBack = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -41,6 +49,7 @@ public class SettingsActivity extends Activity {
 
         chooseDaysButton.setOnClickListener(chooseDays);
         chooseVolumeButton.setOnClickListener(setVolume);
+        setRepeatingInterval.setOnClickListener(repeatInterval);
         backButton.setOnClickListener(goBack);
 
     }
@@ -50,9 +59,13 @@ public class SettingsActivity extends Activity {
         startActivity(intent);
     }
 
-
     void openChooseDaysActivity(){
         Intent intent = new Intent(SettingsActivity.this, ChooseDays.class);
+        startActivity(intent);
+    }
+
+    void launchRepeatIntervalActivity(){
+        Intent intent = new Intent(SettingsActivity.this, AlarmRepeating.class);
         startActivity(intent);
     }
 
