@@ -142,7 +142,12 @@ public class AlarmActivity extends Activity {
             else {
                 alarmManager.setRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), repeatIntervalMilliseconds, pendingIntent);
 
-                Toast.makeText(AlarmActivity.this, "Reminders are set to repeat every " + repeatInterval + " minutes.", Toast.LENGTH_LONG).show();
+                if (repeatInterval == 1) {
+                    Toast.makeText(AlarmActivity.this, "Reminders are set to repeat every minute.", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    Toast.makeText(AlarmActivity.this, "Reminders are set to repeat every " + repeatInterval + " minutes.", Toast.LENGTH_LONG).show();
+                }
             }
 
         } else {
