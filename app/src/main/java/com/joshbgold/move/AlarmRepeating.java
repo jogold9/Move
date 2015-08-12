@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class AlarmRepeating extends Activity {
 
@@ -28,23 +29,21 @@ public class AlarmRepeating extends Activity {
 
                 //insert code here to check if input is actually an integer between 0 and 720!!!!!
 
+                String text = repeatIntervalString;
+                try {
+                    Integer x = Integer.parseInt(text);
+                    if (x < 0 || x > 720){
+                        Toast.makeText(AlarmRepeating.this, "Please enter a number between 0 and 720.", Toast.LENGTH_LONG).show();
+                    }
+                    else {
+                        repeatIntervalInMinutes = Integer.valueOf(repeatIntervalString);
+                        savePrefs("repeatInterval", repeatIntervalInMinutes);
+                        finish();
 
-
-
-                    repeatIntervalInMinutes = Integer.valueOf(repeatIntervalString);
-
-                    savePrefs("repeatInterval", repeatIntervalInMinutes);
-
-         /*    Toast.makeText(AlarmRepeating.this, "Repeat interval for the reminders is to : " + repeatIntervalInMinutes + " minutes.", Toast
-                        .LENGTH_SHORT).show();*/
-
-             /*   try {
-                    Thread.sleep(3000);                 //Delay 3 seconds
-                } catch(InterruptedException ex) {
-                    Thread.currentThread().interrupt();
-                }*/
-
-                finish();
+                    }
+                } catch (NumberFormatException exception) {
+                    Toast.makeText(AlarmRepeating.this, "Please enter a number between 0 and 720.", Toast.LENGTH_LONG).show();
+                }
             }
         };
 

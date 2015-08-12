@@ -26,7 +26,7 @@
         android:background="@drawable/buttons"
         android:alpha="0.50"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:hint=" Enter a value in minutes for how often you want the reminders to repeat. For a one-time alarm, you do not need to do anything here."
+        android:hint=" Enter a value in minutes for how often you want the reminders to repeat. For a one-time alarm, enter zero"
         android:textColorHint="@android:color/black"
         android:id="@+id/instructions"
         android:layout_centerVertical="true"

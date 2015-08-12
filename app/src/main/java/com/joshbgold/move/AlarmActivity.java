@@ -129,7 +129,7 @@ public class AlarmActivity extends Activity {
 
             repeatingInterval = LoadPreferences("repeatInterval", repeatingInterval);  //gets number of minutes reminder should repeat
 
-            Toast.makeText(AlarmActivity.this, "Reminders are set to repeat every " + repeatingInterval + " minutes.", Toast.LENGTH_LONG).show();
+           // Toast.makeText(AlarmActivity.this, "Reminders are set to repeat every " + repeatingInterval + " minutes.", Toast.LENGTH_LONG).show();
 
             repeatingInterval = repeatingInterval * 1000 * 60;  //converts repeating interval to milliseconds for setRepeating method
 
