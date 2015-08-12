@@ -33,12 +33,16 @@ public class AlarmRepeating extends Activity {
 
                     repeatIntervalInMinutes = Integer.valueOf(repeatIntervalString);
 
-
                     savePrefs("repeatInterval", repeatIntervalInMinutes);
 
-            /*    Toast.makeText(AlarmRepeating.this, "Repeat interval for the reminders is to : " + repeatIntervalInMinutes + " minutes.", Toast
-                        .LENGTH_SHORT)
-                        .show();*/
+         /*    Toast.makeText(AlarmRepeating.this, "Repeat interval for the reminders is to : " + repeatIntervalInMinutes + " minutes.", Toast
+                        .LENGTH_SHORT).show();*/
+
+             /*   try {
+                    Thread.sleep(3000);                 //Delay 3 seconds
+                } catch(InterruptedException ex) {
+                    Thread.currentThread().interrupt();
+                }*/
 
                 finish();
             }

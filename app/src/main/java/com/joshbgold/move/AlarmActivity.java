@@ -127,9 +127,11 @@ public class AlarmActivity extends Activity {
             Intent myIntent = new Intent(AlarmActivity.this, AlarmReceiver.class);
             pendingIntent = PendingIntent.getBroadcast(AlarmActivity.this, 0, myIntent, 0);
 
-            repeatingInterval = LoadPreferences("repeatInterval", repeatingInterval);
+            repeatingInterval = LoadPreferences("repeatInterval", repeatingInterval);  //gets number of minutes reminder should repeat
 
             Toast.makeText(AlarmActivity.this, "Reminders are set to repeat every " + repeatingInterval + " minutes.", Toast.LENGTH_LONG).show();
+
+            repeatingInterval = repeatingInterval * 1000 * 60;  //converts repeating interval to milliseconds for setRepeating method
 
             //Set a non-repeating alarm
             if (repeatingInterval == 0) {
