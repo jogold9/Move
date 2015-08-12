@@ -29,7 +29,8 @@ public class AlarmActivity extends Activity {
     private TimePicker alarmTimePicker;
     private static Context context;
     private final float mediaPlayerVolume = (float)0.3;
-    int repeatingInterval = 0; //i.e. 1000*60*2 (1000 milliseconds * 60 seconds * 2 repeats alarm every two minutes)
+    int repeatInterval = 0; //i.e. 1000*60*2 (1000 milliseconds * 60 seconds * 2 repeats alarm every two minutes)
+    int repeatIntervalMilliseconds = 0;
 
     public AlarmActivity() {
 
@@ -127,23 +128,22 @@ public class AlarmActivity extends Activity {
             Intent myIntent = new Intent(AlarmActivity.this, AlarmReceiver.class);
             pendingIntent = PendingIntent.getBroadcast(AlarmActivity.this, 0, myIntent, 0);
 
-            repeatingInterval = LoadPreferences("repeatInterval", repeatingInterval);  //gets number of minutes reminder should repeat
+            repeatInterval = LoadPreferences("repeatInterval", repeatInterval);  //gets number of minutes reminder should repeat
 
-           // Toast.makeText(AlarmActivity.this, "Reminders are set to repeat every " + repeatingInterval + " minutes.", Toast.LENGTH_LONG).show();
-
-            repeatingInterval = repeatingInterval * 1000 * 60;  //converts repeating interval to milliseconds for setRepeating method
+            repeatIntervalMilliseconds = repeatInterval * 1000 * 60;  //converts repeating interval to milliseconds for setRepeating method
 
             //Set a non-repeating alarm
-            if (repeatingInterval == 0) {
+            if (repeatInterval == 0) {
                 alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
+                Toast.makeText(AlarmActivity.this, "Your one time reminder is now set!", Toast.LENGTH_LONG).show();
             }
 
             //Set a repeating alarm
             else {
-                alarmManager.setRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), repeatingInterval, pendingIntent);
-            }
+                alarmManager.setRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), repeatIntervalMilliseconds, pendingIntent);
 
-            Toast.makeText(AlarmActivity.this, "Your reminder(s) are set!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AlarmActivity.this, "Reminders are set to repeat every " + repeatInterval + " minutes.", Toast.LENGTH_LONG).show();
+            }
 
         } else {
             alarmManager.cancel(pendingIntent);
