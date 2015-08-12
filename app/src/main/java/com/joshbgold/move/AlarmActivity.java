@@ -27,10 +27,9 @@ public class AlarmActivity extends Activity {
     AlarmManager alarmManager;
     private static PendingIntent pendingIntent;
     private TimePicker alarmTimePicker;
-    private int repeatingInterval = 0; //i.e. 1000*60*2 (1000 milliseconds * 60 seconds * 2 repeats alarm every two minutes)
-    boolean repeat = true;
     private static Context context;
     private final float mediaPlayerVolume = (float)0.3;
+    int repeatingInterval = 0; //i.e. 1000*60*2 (1000 milliseconds * 60 seconds * 2 repeats alarm every two minutes)
 
     public AlarmActivity() {
 
@@ -119,13 +118,18 @@ public class AlarmActivity extends Activity {
     }
 
     public void onToggleClicked(View view) {
-        if (((ToggleButton) view).isChecked()) {
+
+       if (((ToggleButton) view).isChecked()) {
 
             Calendar calendar = Calendar.getInstance();
             calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getCurrentHour());
             calendar.set(Calendar.MINUTE, alarmTimePicker.getCurrentMinute());
             Intent myIntent = new Intent(AlarmActivity.this, AlarmReceiver.class);
             pendingIntent = PendingIntent.getBroadcast(AlarmActivity.this, 0, myIntent, 0);
+
+            repeatingInterval = LoadPreferences("repeatInterval", repeatingInterval);
+
+            Toast.makeText(AlarmActivity.this, "Reminders are set to repeat every " + repeatingInterval + " minutes.", Toast.LENGTH_LONG).show();
 
             //Set a non-repeating alarm
             if (repeatingInterval == 0) {
@@ -134,7 +138,6 @@ public class AlarmActivity extends Activity {
 
             //Set a repeating alarm
             else {
-                repeatingInterval = LoadPreferences("repeatInterval", repeatingInterval);
                 alarmManager.setRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), repeatingInterval, pendingIntent);
             }
 
@@ -162,4 +165,4 @@ public class AlarmActivity extends Activity {
         return data;
     }
 
-}
+  }
