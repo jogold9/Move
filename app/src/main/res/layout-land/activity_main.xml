@@ -40,7 +40,7 @@
             android:textOff=" Reminders: Off "
             android:textOn=" Reminders: On "
             android:textAllCaps="false"
-            android:layout_marginRight="5dp"
+            android:layout_marginRight="15dp"
             />
 
         <Button
@@ -61,7 +61,8 @@
             android:text="Exit"
             android:textAllCaps="false"
             android:id="@+id/exitButton"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="15dp"
+
             />
 
     </LinearLayout>
