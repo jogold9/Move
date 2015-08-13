@@ -31,6 +31,12 @@ public class AlarmActivity extends Activity {
     private final float mediaPlayerVolume = (float)0.3;
     int repeatInterval = 0; //i.e. 1000*60*2 (1000 milliseconds * 60 seconds * 2 repeats alarm every two minutes)
     int repeatIntervalMilliseconds = 0;
+    private int hourSet = 0;
+    private int minuteSet = 0;
+    private String minuteSetString = "";
+    private String amPmlabel = "";
+    private MediaPlayer mediaPlayer = null;  //plays an mp3 file
+
 
     public AlarmActivity() {
 
@@ -41,17 +47,15 @@ public class AlarmActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         alarmTimePicker = (TimePicker) findViewById(R.id.alarmTimePicker);
-        ToggleButton alarmToggle = (ToggleButton) findViewById(R.id.alarmToggle);
+        final ToggleButton alarmToggle = (ToggleButton) findViewById(R.id.alarmToggle);
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         final Button settingsButton = (Button) findViewById(R.id.settingsButton);
-        final Button cancelAllButton = (Button) findViewById(R.id.cancelAllButton);
+        //final Button cancelAllButton = (Button) findViewById(R.id.cancelAllButton);
         final Button exitButton = (Button) findViewById(R.id.exitButton);
 
         AlarmActivity.context = getApplicationContext();  //needed to be able to cancel alarm from another activity
 
-        //MediaPlayer is used to play an mp3 file
-        final MediaPlayer mediaPlayer = MediaPlayer.create(this, R.drawable.om_mani_short);
-
+        mediaPlayer = MediaPlayer.create(this, R.drawable.om_mani_short);
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
 
             @Override
@@ -71,7 +75,7 @@ public class AlarmActivity extends Activity {
             }
         };
 
-        //cancel all alarms
+/*        //cancel all alarms
         View.OnClickListener cancelAll = new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -91,10 +95,10 @@ public class AlarmActivity extends Activity {
                     Log.d("Alarm Activity", e.toString());
                 }
 
-
+                alarmToggle.setText(" Reminders: Off ");
                 Toast.makeText(AlarmActivity.this, "Alarms Canceled", Toast.LENGTH_LONG).show();
             }
-        };
+        };*/
 
         View.OnClickListener quitApp = new View.OnClickListener() {  //this block stops music when exiting
             @Override
@@ -114,7 +118,7 @@ public class AlarmActivity extends Activity {
         };
 
         settingsButton.setOnClickListener(goToSettings);
-        cancelAllButton.setOnClickListener(cancelAll);
+        //cancelAllButton.setOnClickListener(cancelAll);
         exitButton.setOnClickListener(quitApp);
     }
 
@@ -123,8 +127,33 @@ public class AlarmActivity extends Activity {
        if (((ToggleButton) view).isChecked()) {
 
             Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getCurrentHour());
-            calendar.set(Calendar.MINUTE, alarmTimePicker.getCurrentMinute());
+            calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getCurrentHour());  //gets hour alarm is set for
+            calendar.set(Calendar.MINUTE, alarmTimePicker.getCurrentMinute()); //gets minutes alarm is set for
+
+            hourSet = alarmTimePicker.getCurrentHour();
+            minuteSet = alarmTimePicker.getCurrentMinute();
+
+           //format the hours properly to display the time to user
+           if (hourSet > 12){
+               hourSet = hourSet - 12;
+           }
+           //format the minutes properly to display the time to user
+           if (minuteSet == 0){
+               minuteSetString = "00";
+           }
+           else if (minuteSet > 0 && minuteSet < 10){
+               minuteSetString = "0" + String.valueOf(minuteSet);
+           }
+           else {
+               minuteSetString = String.valueOf(minuteSet);
+           }
+
+           //figure out if the user selected a.m. or p.m.
+           if (calendar.get(Calendar.AM_PM) == Calendar.AM)
+               amPmlabel = "AM";
+           else if (calendar.get(Calendar.AM_PM) == Calendar.PM)
+               amPmlabel = "PM";
+
             Intent myIntent = new Intent(AlarmActivity.this, AlarmReceiver.class);
             pendingIntent = PendingIntent.getBroadcast(AlarmActivity.this, 0, myIntent, 0);
 
@@ -135,7 +164,10 @@ public class AlarmActivity extends Activity {
             //Set a non-repeating alarm
             if (repeatInterval == 0) {
                 alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
-                Toast.makeText(AlarmActivity.this, "Your one time reminder is now set!", Toast.LENGTH_LONG).show();
+                //string currentTime = calendar.getTime();
+                Toast.makeText(AlarmActivity.this, "Your one time reminder is now set for " + hourSet + ":" + minuteSetString + amPmlabel, Toast
+                        .LENGTH_LONG)
+                        .show();
             }
 
             //Set a repeating alarm
@@ -143,16 +175,31 @@ public class AlarmActivity extends Activity {
                 alarmManager.setRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), repeatIntervalMilliseconds, pendingIntent);
 
                 if (repeatInterval == 1) {
-                    Toast.makeText(AlarmActivity.this, "Reminders are set to repeat every minute.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(AlarmActivity.this, "Your reminder is now set for " + hourSet + ":" + minuteSetString + amPmlabel + " and will " +
+                            "repeat " +
+                            "every minute", Toast.LENGTH_LONG)
+                            .show();
                 }
                 else {
-                    Toast.makeText(AlarmActivity.this, "Reminders are set to repeat every " + repeatInterval + " minutes.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(AlarmActivity.this, "Your reminder is now set for " + hourSet + ":" + minuteSetString + amPmlabel + " and will " +
+                            "repeat " +
+                            "every " +
+                            repeatInterval + " minutes.", Toast.LENGTH_LONG).show();
                 }
             }
 
         } else {
-            alarmManager.cancel(pendingIntent);
-            Toast.makeText(AlarmActivity.this, "Your reminder(s) are off.", Toast.LENGTH_SHORT).show();
+           AlarmActivity.getAppContext();
+           Intent intent = new Intent(getBaseContext(), AlarmReceiver.class);
+           PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(), 0, intent, 0);
+           alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+           alarmManager.cancel(pendingIntent);
+
+           turnOffAudio();
+
+          // alarmToggle.setText(" Reminders: Off ");
+
+           Toast.makeText(AlarmActivity.this, "Your reminder(s) are off.", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -170,6 +217,17 @@ public class AlarmActivity extends Activity {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         int data = sharedPreferences.getInt(key, value);
         return data;
+    }
+
+    private void turnOffAudio(){
+        if (mediaPlayer != null) try {
+            if (mediaPlayer.isPlaying()) {
+                mediaPlayer.stop();
+                mediaPlayer.release();
+            }
+        } catch (Exception e) {
+            Log.d("Alarm Activity", e.toString());
+        }
     }
 
   }

@@ -32,8 +32,9 @@ public class AlarmRepeating extends Activity {
                 String text = repeatIntervalString;
                 try {
                     Integer x = Integer.parseInt(text);
-                    if (x < 0 || x > 720){
-                        Toast.makeText(AlarmRepeating.this, "Please enter a number between 0 and 720.", Toast.LENGTH_LONG).show();
+                    if (x != 0 && x < 30 || x > 300){
+                        Toast.makeText(AlarmRepeating.this, "Please enter a number between 30 and 300, or enter zero for a one-time alarm.", Toast
+                                .LENGTH_LONG).show();
                     }
                     else {
                         repeatIntervalInMinutes = Integer.valueOf(repeatIntervalString);
@@ -42,7 +43,7 @@ public class AlarmRepeating extends Activity {
 
                     }
                 } catch (NumberFormatException exception) {
-                    Toast.makeText(AlarmRepeating.this, "Please enter a number between 0 and 720.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(AlarmRepeating.this, "Please enter a number between 30 and 300, or enter zero for a one-time alarm.", Toast.LENGTH_LONG).show();
                 }
             }
         };

@@ -44,7 +44,8 @@
         android:layout_above="@+id/settingsButton"
         android:layout_alignRight="@+id/alarmTimePicker"
         android:layout_alignEnd="@+id/alarmTimePicker"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="10dp"
+        android:visibility="invisible"/>
 
     <Button
         android:layout_width="wrap_content"
