@@ -14,7 +14,7 @@ import java.util.Date;
 
 public class AlarmService extends IntentService {
     private NotificationManager alarmNotificationManager;
-    public boolean monday, tuesday, wednesday, thursday, friday, saturday, sunday;
+    boolean mondayBoolean, tuesdayBoolean, wednesdayBoolean, thursdayBoolean, fridayBoolean, saturdayBoolean, sundayBoolean;
     public boolean alarmToggle = false;  //controls whether alarm should go off
 
     public AlarmService() {
@@ -25,13 +25,13 @@ public class AlarmService extends IntentService {
     public void onHandleIntent(Intent intent) {
 
         //This block of code controls which days reminders are active
-        LoadPreferences("Monday", monday);
-        LoadPreferences("Monday", tuesday);
-        LoadPreferences("Monday", wednesday);
-        LoadPreferences("Monday", thursday);
-        LoadPreferences("Monday", friday);
-        LoadPreferences("Monday", saturday);
-        LoadPreferences("Monday", sunday);
+        LoadPreferences("Monday", mondayBoolean);
+        LoadPreferences("Tuesday", tuesdayBoolean);
+        LoadPreferences("Wednesday", wednesdayBoolean);
+        LoadPreferences("Thursday", thursdayBoolean);
+        LoadPreferences("Friday", fridayBoolean);
+        LoadPreferences("Saturday", saturdayBoolean);
+        LoadPreferences("Sunday", sundayBoolean);
 
         //get the current day
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE");
@@ -39,25 +39,25 @@ public class AlarmService extends IntentService {
         String dayOfTheWeek = simpleDateFormat.format(date);
 
         //See if user wants alarm to go off today based on the days he or she chose
-        if ((dayOfTheWeek.equals("Monday") || dayOfTheWeek.equals("monday")) && (monday == true)){
+        if ((dayOfTheWeek.equals("Monday") || dayOfTheWeek.equals("monday")) && (mondayBoolean == true)){
             alarmToggle = true;
         }
-        else if ((dayOfTheWeek.equals("Tuesday") || dayOfTheWeek.equals("tuesday")) && (tuesday == true)){
+        else if ((dayOfTheWeek.equals("Tuesday") || dayOfTheWeek.equals("tuesday")) && (tuesdayBoolean == true)){
             alarmToggle = true;
         }
-        else if ((dayOfTheWeek.equals("Wednesday") || dayOfTheWeek.equals("wednesday")) && (wednesday == true)){
+        else if ((dayOfTheWeek.equals("Wednesday") || dayOfTheWeek.equals("wednesday")) && (wednesdayBoolean == true)){
             alarmToggle = true;
         }
-        else if ((dayOfTheWeek.equals("Thursday") || dayOfTheWeek.equals("thursday")) && (thursday == true)){
+        else if ((dayOfTheWeek.equals("Thursday") || dayOfTheWeek.equals("thursday")) && (thursdayBoolean == true)){
             alarmToggle = true;
         }
-        else if ((dayOfTheWeek.equals("Friday") || dayOfTheWeek.equals("friday")) && (friday == true)){
+        else if ((dayOfTheWeek.equals("Friday") || dayOfTheWeek.equals("friday")) && (fridayBoolean == true)){
             alarmToggle = true;
         }
-        else if ((dayOfTheWeek.equals("Saturday") || dayOfTheWeek.equals("saturday")) && (saturday == true)){
+        else if ((dayOfTheWeek.equals("Saturday") || dayOfTheWeek.equals("saturday")) && (saturdayBoolean == true)){
             alarmToggle = true;
         }
-        else if ((dayOfTheWeek.equals("Sunday") || dayOfTheWeek.equals("sunday")) && (sunday == true)){
+        else if ((dayOfTheWeek.equals("Sunday") || dayOfTheWeek.equals("sunday")) && (sundayBoolean == true)){
             alarmToggle = true;
         }
         else {
@@ -65,7 +65,7 @@ public class AlarmService extends IntentService {
         }
 
         if (alarmToggle == true){
-            sendNotification("stretch");
+            sendNotification("Move reminder");
         }
     }
 

@@ -12,7 +12,10 @@ import android.widget.CheckBox;
 public class ChooseDays extends Activity {
 
     CheckBox monday, tuesday, wednesday, thursday, friday, saturday, sunday;
+    boolean mondayBoolean = true, tuesdayBoolean = true, wednesdayBoolean = true, thursdayBoolean = true, fridayBoolean = true, saturdayBoolean =
+            true, sundayBoolean = true;
     View.OnClickListener checkBoxListener;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +29,24 @@ public class ChooseDays extends Activity {
         friday = (CheckBox)findViewById(R.id.fridayCheckbox);
         saturday = (CheckBox)findViewById(R.id.saturdayCheckbox);
         sunday = (CheckBox)findViewById(R.id.sundayCheckBox);
+
+        //This block of code controls which days reminders are active
+        LoadPreferences("Monday", mondayBoolean);
+        LoadPreferences("Tuesday", tuesdayBoolean);
+        LoadPreferences("Wednesday", wednesdayBoolean);
+        LoadPreferences("Thursday", thursdayBoolean);
+        LoadPreferences("Friday", fridayBoolean);
+        LoadPreferences("Saturday", saturdayBoolean);
+        LoadPreferences("Sunday", sundayBoolean);
+
+        monday.setChecked(mondayBoolean);
+        tuesday.setChecked(tuesdayBoolean);
+        wednesday.setChecked(wednesdayBoolean);
+        thursday.setChecked(thursdayBoolean);
+        friday.setChecked(fridayBoolean);
+        saturday.setChecked(saturdayBoolean);
+        sunday.setChecked(sundayBoolean);
+
         checkBoxListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,6 +113,13 @@ public class ChooseDays extends Activity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(key, value);
         editor.commit();
+    }
+
+    //get prefs
+    private boolean LoadPreferences(String key, boolean value){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        return sharedPreferences.getBoolean(key, value);
+
     }
 
 }
