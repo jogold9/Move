@@ -55,18 +55,7 @@ public class AlarmActivity extends Activity {
 
         AlarmActivity.context = getApplicationContext();  //needed to be able to cancel alarm from another activity
 
-        mediaPlayer = MediaPlayer.create(this, R.drawable.om_mani_short);
-        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-
-            @Override
-            public void onCompletion(MediaPlayer mediaplayer) {
-                mediaplayer.stop();
-                mediaplayer.release();
-            }
-        });
-
-        mediaPlayer.setVolume(mediaPlayerVolume, mediaPlayerVolume); //sets volume for left & right speakers / headphones
-        mediaPlayer.start();
+        playAudio();
 
         View.OnClickListener goToSettings = new View.OnClickListener(){
             @Override
@@ -74,31 +63,6 @@ public class AlarmActivity extends Activity {
                 openSettings();
             }
         };
-
-/*        //cancel all alarms
-        View.OnClickListener cancelAll = new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-
-                AlarmActivity.getAppContext();
-                Intent intent = new Intent(getBaseContext(), AlarmReceiver.class);
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(), 0, intent, 0);
-                alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-                alarmManager.cancel(pendingIntent);
-
-                if (mediaPlayer != null) try {
-                    if (mediaPlayer.isPlaying()) {
-                        mediaPlayer.stop();
-                        mediaPlayer.release();
-                    }
-                } catch (Exception e) {
-                    Log.d("Alarm Activity", e.toString());
-                }
-
-                alarmToggle.setText(" Reminders: Off ");
-                Toast.makeText(AlarmActivity.this, "Alarms Canceled", Toast.LENGTH_LONG).show();
-            }
-        };*/
 
         View.OnClickListener quitApp = new View.OnClickListener() {  //this block stops music when exiting
             @Override
@@ -118,8 +82,22 @@ public class AlarmActivity extends Activity {
         };
 
         settingsButton.setOnClickListener(goToSettings);
-        //cancelAllButton.setOnClickListener(cancelAll);
         exitButton.setOnClickListener(quitApp);
+    }
+
+    private void playAudio() {
+        mediaPlayer = MediaPlayer.create(this, R.drawable.om_mani_short);
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+            @Override
+            public void onCompletion(MediaPlayer mediaplayer) {
+                mediaplayer.stop();
+                mediaplayer.release();
+            }
+        });
+
+        mediaPlayer.setVolume(mediaPlayerVolume, mediaPlayerVolume); //sets volume for left & right speakers / headphones
+        mediaPlayer.start();
     }
 
     public void onToggleClicked(View view) {
@@ -196,8 +174,6 @@ public class AlarmActivity extends Activity {
            alarmManager.cancel(pendingIntent);
 
            turnOffAudio();
-
-          // alarmToggle.setText(" Reminders: Off ");
 
            Toast.makeText(AlarmActivity.this, "Your reminder(s) are off.", Toast.LENGTH_LONG).show();
         }
