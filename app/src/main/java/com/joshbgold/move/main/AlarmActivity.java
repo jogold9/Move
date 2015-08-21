@@ -1,4 +1,4 @@
-package com.joshbgold.move;
+package com.joshbgold.move.main;
 
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -15,6 +15,9 @@ import android.widget.Button;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+
+import com.joshbgold.move.R;
+import com.joshbgold.move.backend.AlarmReceiver;
 
 import java.util.Calendar;
 

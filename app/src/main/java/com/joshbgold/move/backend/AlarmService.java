@@ -1,4 +1,4 @@
-package com.joshbgold.move;
+package com.joshbgold.move.backend;
 
 import android.app.IntentService;
 import android.app.NotificationManager;
@@ -6,6 +6,9 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
+
+import com.joshbgold.move.main.AlarmActivity;
+import com.joshbgold.move.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

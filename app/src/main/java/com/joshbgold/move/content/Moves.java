@@ -1,4 +1,4 @@
-package com.joshbgold.move;
+package com.joshbgold.move.content;
 
 import java.util.Random;
 

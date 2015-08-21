@@ -9,13 +9,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/alarmTimePicker"
-
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_marginBottom="10dp"
+        android:layout_alignLeft="@id/linearLayout"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
         android:background="@drawable/buttons"
         android:alpha="0.50"
-
         />
 
     <LinearLayout
@@ -26,8 +25,8 @@
 
         android:id="@+id/linearLayout"
         android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp">
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp">
 
     <ToggleButton
         android:layout_width="wrap_content"
@@ -56,19 +55,19 @@
             android:layout_weight="1"
             />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/buttons"
-            android:alpha="0.50"
-            android:text="Exit"
-            android:textAllCaps="false"
-            android:id="@+id/exitButton"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="1"
-            />
-
     </LinearLayout>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:background="@drawable/buttons"
+        android:alpha="0.50"
+        android:text="Exit"
+        android:textAllCaps="false"
+        android:id="@+id/exitButton"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
 
 </RelativeLayout>

@@ -1,4 +1,4 @@
-package com.joshbgold.move;
+package com.joshbgold.move.main;
 
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -17,6 +17,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+
+import com.joshbgold.move.R;
+import com.joshbgold.move.backend.AlarmReceiver;
+import com.joshbgold.move.content.Moves;
+import com.joshbgold.move.content.Quotations;
 
 
 public class ReminderActivity extends Activity {
