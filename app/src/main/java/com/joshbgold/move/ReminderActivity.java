@@ -67,8 +67,8 @@ public class ReminderActivity extends Activity {
         mediaPlayer.start();
 
         //Puts random move instruction into text view (i.e. breathe, stretch, go outside, etc).
-        ThingsToDo thing = new ThingsToDo();
-        movesString = thing.getThingToDo();
+        Moves thing = new Moves();
+        movesString = thing.getMoves();
         lastMovesInstruction = movesString; //store for later use for back button
         movesAndQuotesTextView.setText(movesString);
 
