@@ -40,11 +40,6 @@
             android:screenOrientation="nosensor" >
         </activity>
         <activity
-            android:name=".ChooseDays"
-            android:label="@string/app_name"
-            android:screenOrientation="nosensor">
-        </activity>
-        <activity
             android:name=".SetVolumeActivity"
             android:label="@string/app_name"
             android:screenOrientation="nosensor">
