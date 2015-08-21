@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceListItem"
+
             android:background="#FFFFFF"
             android:alpha="0.50"
             android:text=" Volume: "
@@ -23,7 +23,8 @@
             android:layout_marginRight="5dp"
             android:textAlignment="center"
             android:paddingTop="5dp"
-            android:layout_marginTop="50dp"/>
+            android:layout_marginTop="50dp"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"/>
 
         <SeekBar
             android:layout_width="200dp"
@@ -39,6 +40,44 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/linearLayout3"
+        android:layout_below="@+id/linearLayout2"
+        android:layout_alignLeft="@+id/linearLayout2"
+        android:layout_marginTop="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
+            android:background="#FFFFFF"
+            android:alpha="0.50"
+            android:text=" Repeat Interval (Min): "
+            android:id="@+id/repeatInterval"
+            android:layout_marginRight="5dp"
+            android:textAlignment="center"
+            android:paddingTop="5dp"
+            />
+
+        <EditText
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:id="@+id/repeatIntervalInMinutes"
+            android:textSize= "36dp"
+            android:inputType="text"
+            android:ems="10"
+            android:background="@drawable/buttons"
+            android:alpha="0.50"
+
+            android:maxLength="4"
+            android:textAlignment="center"
+            android:paddingTop="5dp"/>
+
+    </LinearLayout>
+
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -47,7 +86,7 @@
         android:background="@drawable/buttons"
         android:alpha="0.50"
         android:textAllCaps="false"
-        android:layout_below="@+id/linearLayout2"
+        android:layout_below="@+id/linearLayout3"
         android:layout_alignLeft="@+id/linearLayout2"
         android:layout_marginTop="20dp"/>
 
@@ -77,19 +116,6 @@
         android:layout_centerHorizontal="true"
         android:layout_alignLeft="@+id/linearLayout2"
         android:layout_marginTop="20dp"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/buttons"
-        android:alpha="0.50"
-        android:textAllCaps="false"
-        android:text=" Set Repeating Interval "
-        android:id="@+id/setRepeat"
-        android:layout_below="@+id/MovementsButton"
-        android:layout_centerHorizontal="true"
-        android:layout_alignLeft="@+id/linearLayout2"
-        android:layout_marginTop="5dp"/>
 
     <Button
         android:layout_width="wrap_content"

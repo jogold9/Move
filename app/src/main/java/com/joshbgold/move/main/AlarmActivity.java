@@ -155,18 +155,11 @@ public class AlarmActivity extends Activity {
             else {
                 alarmManager.setRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), repeatIntervalMilliseconds, pendingIntent);
 
-                if (repeatInterval == 1) {
-                    Toast.makeText(AlarmActivity.this, "Your reminder is now set for " + hourSet + ":" + minuteSetString + amPmlabel + " and will " +
-                            "repeat " +
-                            "every minute", Toast.LENGTH_LONG)
-                            .show();
-                }
-                else {
                     Toast.makeText(AlarmActivity.this, "Your reminder is now set for " + hourSet + ":" + minuteSetString + amPmlabel + " and will " +
                             "repeat " +
                             "every " +
                             repeatInterval + " minutes.", Toast.LENGTH_LONG).show();
-                }
+
             }
 
         } else {
