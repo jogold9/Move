@@ -2,6 +2,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
+
                 tools:context=".MainActivity"
                 android:background="@drawable/ancient_art">
 
@@ -9,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/alarmTimePicker"
-        android:layout_alignLeft="@id/linearLayout"
+        android:layout_alignLeft="@+id/linearLayout"
         android:layout_alignParentTop="true"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="5dp"
@@ -22,7 +23,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/alarmTimePicker"
         android:layout_centerHorizontal="true"
-
         android:id="@+id/linearLayout"
         android:orientation="horizontal"
         android:layout_marginTop="5dp"

@@ -13,7 +13,7 @@ import com.joshbgold.move.R;
 
 public class AlarmRepeating extends Activity {
 
-    private String repeatIntervalString = "";
+    private String repeatIntervalAsString = "";
     private int repeatIntervalInMinutes = 0;  //Number of minutes between 0 and 720 that user wants alarm to repeat at.
 
     @Override
@@ -27,25 +27,32 @@ public class AlarmRepeating extends Activity {
         View.OnClickListener goBack = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                repeatIntervalString = repeatIntervalEditText.getText() + "";
+                repeatIntervalAsString = repeatIntervalEditText.getText() + "";
 
                 //insert code here to check if input is actually an integer between 0 and 720!!!!!
 
-                String text = repeatIntervalString;
                 try {
-                    Integer x = Integer.parseInt(text);
-                    if (x != 0 && x < 2 || x > 1440){
-                        Toast.makeText(AlarmRepeating.this, "Please enter a number between 2 and 1440, or enter zero for a one-time alarm.", Toast
-                                .LENGTH_LONG).show();
-                    }
-                    else {
-                        repeatIntervalInMinutes = Integer.valueOf(repeatIntervalString);
+
+                    if (repeatIntervalAsString == ""){
+                        repeatIntervalInMinutes = 0;
                         savePrefs("repeatInterval", repeatIntervalInMinutes);
                         finish();
-
                     }
+                    else {
+                        Integer repeatIntervalAsInt = Integer.parseInt(repeatIntervalAsString);
+                            if (repeatIntervalAsInt != 0 && repeatIntervalAsInt < 2 || repeatIntervalAsInt > 1440){
+                                Toast.makeText(AlarmRepeating.this, "Please enter a number between 2 and 1440, or leave blank for a one-time alarm.",
+                                        Toast.LENGTH_LONG).show();
+                            }
+                            else {
+                                 repeatIntervalInMinutes = Integer.valueOf(repeatIntervalAsString);
+                                 savePrefs("repeatInterval", repeatIntervalInMinutes);
+                                 finish();
+                            }
+                    }
+
                 } catch (NumberFormatException exception) {
-                    Toast.makeText(AlarmRepeating.this, "Please enter a number between 2 and 1440, or enter zero for a one-time alarm.", Toast
+                    Toast.makeText(AlarmRepeating.this, "Please enter a number between 2 and 1440, or leave blank for a one-time alarm.", Toast
                             .LENGTH_LONG).show();
                 }
             }
