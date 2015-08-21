@@ -13,7 +13,7 @@ public class SettingsActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        
+
         final Button chooseVolumeButton = (Button) findViewById(R.id.setReminderVolume);
         final Button setRepeatingInterval = (Button) findViewById(R.id.setRepeat);
         final Button backButton = (Button) findViewById(R.id.backButton);
