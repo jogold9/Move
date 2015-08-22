@@ -24,10 +24,10 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
 
     @Override
     public void onReceive(final Context context, Intent intent) {
-        loadPrefs("noWeekends", true);
+        noWeekends = loadPrefs("noWeekends", true);
 
         if(dayOfTheWeek == "Saturday" || dayOfTheWeek == "Sunday"  && noWeekends == true) {
-            //Alarm is not wnated on the weekend, so do nothing
+            //Alarm is not wanted on the weekend
         }
         else {
 
