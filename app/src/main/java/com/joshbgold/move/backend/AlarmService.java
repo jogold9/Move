@@ -7,11 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 
-import com.joshbgold.move.main.AlarmActivity;
 import com.joshbgold.move.R;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import com.joshbgold.move.main.AlarmActivity;
 
 public class AlarmService extends IntentService {
     private NotificationManager alarmNotificationManager;
@@ -23,17 +20,6 @@ public class AlarmService extends IntentService {
     @Override
     public void onHandleIntent(Intent intent) {
 
-
-        //get the current day
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE");
-        Date date = new Date();
-        String dayOfTheWeek = simpleDateFormat.format(date);
-
-        //if today is Saturday or Sunday and user does not want reminders on weekend, don't send reminder
-
-        //else if time is outside of working hours, and user does not reminders then, don't send reminder
-
-        //else, send the reminder
             sendNotification("Move reminder");
 
     }

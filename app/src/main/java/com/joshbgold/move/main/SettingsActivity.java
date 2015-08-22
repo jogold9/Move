@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.Toast;
@@ -18,16 +19,17 @@ public class SettingsActivity extends Activity {
     private SeekBar volumeControl = null;
     private float volume = (float) 0.50;
     private String repeatIntervalAsString = "";
-    private int repeatIntervalInMinutes = 0;  //Number of minutes between 0 and 720 that user wants alarm to repeat at.
+    private int repeatIntervalInMinutes = 0;  //Number of minutes that user wants alarm to repeat at (optional)
+    private CheckBox blockWeekends;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-
         final EditText repeatIntervalEditText = (EditText) findViewById(R.id.repeatIntervalInMinutes);
         final Button backButton = (Button) findViewById(R.id.backButton);
+        final CheckBox blockWeekends = (CheckBox)findViewById(R.id.blockWeekends);
 
         volumeControl = (SeekBar) findViewById(R.id.volumeSeekBar);
 
@@ -51,6 +53,13 @@ public class SettingsActivity extends Activity {
                 Toast.makeText(SettingsActivity.this, "Audio volume is set to: " + progressChanged + " %", Toast.LENGTH_SHORT).show();
             }
         });
+
+
+
+        //saves user preference for whether to have alarm on weekends
+        if (blockWeekends.isChecked()){
+            savePrefs("noWeekends", true);
+        }
 
         View.OnClickListener goBack = new View.OnClickListener() {
             @Override
@@ -97,11 +106,18 @@ public class SettingsActivity extends Activity {
         editor.commit();
     }
 
-    //save prefs
     public void savePrefs(String key, int value){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(key, value);
+        editor.commit();
+    }
+
+    //save prefs
+    public void savePrefs(String key, boolean value){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(key, value);
         editor.commit();
     }
 

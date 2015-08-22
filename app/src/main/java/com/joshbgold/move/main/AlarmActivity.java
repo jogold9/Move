@@ -142,10 +142,11 @@ public class AlarmActivity extends Activity {
 
             repeatIntervalMilliseconds = repeatInterval * 1000 * 60;  //converts repeating interval to milliseconds for setRepeating method
 
-            //Set a non-repeating alarm
+            //Set a one time alarm
             if (repeatInterval == 0) {
                 alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
-                //string currentTime = calendar.getTime();
+                AlarmReceiver alarmReceiver = new AlarmReceiver(this); //http://stackoverflow.com/questions/16678763/the-method-getapplicationcontext-is-undefined
+
                 Toast.makeText(AlarmActivity.this, "Your one time reminder is now set for " + hourSet + ":" + minuteSetString + amPmlabel, Toast
                         .LENGTH_LONG)
                         .show();
@@ -154,6 +155,7 @@ public class AlarmActivity extends Activity {
             //Set a repeating alarm
             else {
                 alarmManager.setRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), repeatIntervalMilliseconds, pendingIntent);
+                AlarmReceiver alarmReceiver = new AlarmReceiver(this); //http://stackoverflow.com/questions/16678763/the-method-getapplicationcontext-is-undefined
 
                     Toast.makeText(AlarmActivity.this, "Your reminder is now set for " + hourSet + ":" + minuteSetString + amPmlabel + " and will " +
                             "repeat " +
