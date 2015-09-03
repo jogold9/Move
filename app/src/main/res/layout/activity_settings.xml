@@ -110,19 +110,6 @@
         android:background="@drawable/buttons"
         android:alpha="0.50"
         android:textAllCaps="false"
-        android:text=" Set Movements "
-        android:id="@+id/MovementsButton"
-        android:layout_below="@+id/blockNonWorkDayHours"
-        android:layout_centerHorizontal="true"
-        android:layout_alignLeft="@+id/linearLayout2"
-        android:layout_marginTop="20dp"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/buttons"
-        android:alpha="0.50"
-        android:textAllCaps="false"
         android:text="Back"
         android:id="@+id/backButton"
         android:layout_alignParentBottom="true"

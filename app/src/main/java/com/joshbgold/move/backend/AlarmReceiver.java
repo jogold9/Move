@@ -28,6 +28,8 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
 
         if(dayOfTheWeek == "Saturday" || dayOfTheWeek == "Sunday"  && noWeekends == true) {
             //Alarm is not wanted on the weekend
+
+
         }
         else {
 
