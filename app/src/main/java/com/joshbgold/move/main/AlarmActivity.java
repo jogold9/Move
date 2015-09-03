@@ -53,7 +53,6 @@ public class AlarmActivity extends Activity {
         final ToggleButton alarmToggle = (ToggleButton) findViewById(R.id.alarmToggle);
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         final Button settingsButton = (Button) findViewById(R.id.settingsButton);
-        //final Button cancelAllButton = (Button) findViewById(R.id.cancelAllButton);
         final Button exitButton = (Button) findViewById(R.id.exitButton);
 
         AlarmActivity.context = getApplicationContext();  //needed to be able to cancel alarm from another activity

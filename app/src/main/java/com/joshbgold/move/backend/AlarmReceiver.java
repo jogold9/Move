@@ -28,7 +28,11 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
 
         if(dayOfTheWeek == "Saturday" || dayOfTheWeek == "Sunday"  && noWeekends == true) {
             //Alarm is not wanted on the weekend
-
+            try {
+                wait(1);  //waits for one-thoousandth of a millisecond
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
         }
         else {
