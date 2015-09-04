@@ -71,10 +71,10 @@
             android:ems="10"
             android:background="@drawable/buttons"
             android:alpha="0.50"
-
             android:maxLength="4"
             android:textAlignment="center"
-            android:paddingTop="5dp"/>
+            android:paddingTop="5dp"
+            android:text="0"/>
 
     </LinearLayout>
 
@@ -88,7 +88,8 @@
         android:textAllCaps="false"
         android:layout_below="@+id/linearLayout3"
         android:layout_alignLeft="@+id/linearLayout2"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:checked="true"/>
 
     <CheckBox
         android:layout_width="wrap_content"
@@ -101,8 +102,8 @@
         android:layout_below="@+id/blockWeekends"
         android:layout_alignLeft="@+id/linearLayout2"
         android:layout_centerHorizontal="true"
-
-        android:layout_marginTop="5dp"/>
+        android:layout_marginTop="5dp"
+        android:checked="true"/>
 
     <Button
         android:layout_width="wrap_content"

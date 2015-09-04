@@ -7,24 +7,42 @@ import android.preference.PreferenceManager;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class AlarmReceiver extends WakefulBroadcastReceiver {
-
-    //get the current day
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE");
-    Date date = new Date();
-    String dayOfTheWeek = simpleDateFormat.format(date);
-    boolean noWeekends = false;
 
     Context myContext;
     public AlarmReceiver(Context context){
         myContext = context;
     }
 
+    public AlarmReceiver(){
+
+    }
+
+    //get the current day
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE");
+    Date date = new Date();
+    String dayOfTheWeek = simpleDateFormat.format(date);
+
+    Calendar calendar = Calendar.getInstance();
+    int currentHour = calendar.HOUR_OF_DAY;
+
+    boolean noWeekends = true;
+    boolean workHoursOnly = true;
+
     @Override
     public void onReceive(final Context context, Intent intent) {
-        noWeekends = loadPrefs("noWeekends", noWeekends);
+
+
+        try {  //this value could be null if user has not set it...
+            noWeekends = loadPrefs("noWeekends", noWeekends);
+            workHoursOnly = loadPrefs("workHoursOnly", workHoursOnly);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
         if(dayOfTheWeek == "Saturday" || dayOfTheWeek == "Sunday"  && noWeekends == true) {
             //Alarm is not wanted on the weekend
@@ -33,8 +51,17 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
         }
+
+        else if ((currentHour < 9 || currentHour > 17)  && workHoursOnly == true){
+            //Alarm outside of work hours
+            try {
+                wait(1);  //waits for one-thoousandth of a millisecond
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
         else {
 
             Intent myIntent = new Intent();
@@ -52,4 +79,3 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
     }
 
 }
-
