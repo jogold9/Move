@@ -15,6 +15,7 @@
         android:layout_marginBottom="5dp"
         android:background="@drawable/buttons"
         android:alpha="0.50"
+        android:timePickerMode="spinner"
         />
 
     <LinearLayout
