@@ -36,6 +36,11 @@ public class AlarmActivity extends Activity {
     int repeatIntervalMilliseconds = 0;
     private int hourSet = 0;
     private int minuteSet = 0;
+
+    //http://developer.android.com/reference/java/util/Calendar.html#compareTo(java.util.Calendar)
+    //0 if the times of the two Calendars are equal, -1 if the time of this Calendar is before the other one, 1 if the time of this Calendar is after the other one.
+    private int calendarComparison = 0;
+
     private String minuteSetString = "";
     private String amPmlabel = "";
     private MediaPlayer mediaPlayer = null;  //plays an mp3 file
@@ -106,9 +111,10 @@ public class AlarmActivity extends Activity {
 
        if (((ToggleButton) view).isChecked()) {
 
-            Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getCurrentHour());  //gets hour alarm is set for
-            calendar.set(Calendar.MINUTE, alarmTimePicker.getCurrentMinute()); //gets minutes alarm is set for
+            Calendar now = Calendar.getInstance();
+            Calendar alarmTime = Calendar.getInstance();
+            alarmTime.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getCurrentHour());  //gets hour alarm is set for
+            alarmTime.set(Calendar.MINUTE, alarmTimePicker.getCurrentMinute()); //gets minutes alarm is set for
 
             hourSet = alarmTimePicker.getCurrentHour();
             minuteSet = alarmTimePicker.getCurrentMinute();
@@ -129,9 +135,9 @@ public class AlarmActivity extends Activity {
            }
 
            //figure out if the user selected a.m. or p.m.
-           if (calendar.get(Calendar.AM_PM) == Calendar.AM)
+           if (alarmTime.get(Calendar.AM_PM) == Calendar.AM)
                amPmlabel = "AM";
-           else if (calendar.get(Calendar.AM_PM) == Calendar.PM)
+           else if (alarmTime.get(Calendar.AM_PM) == Calendar.PM)
                amPmlabel = "PM";
 
             Intent myIntent = new Intent(AlarmActivity.this, AlarmReceiver.class);
@@ -141,19 +147,26 @@ public class AlarmActivity extends Activity {
 
             repeatIntervalMilliseconds = repeatInterval * 1000 * 60;  //converts repeating interval to milliseconds for setRepeating method
 
+           //check whether target time has already passed for today. Add 1 day to alarmTime if it has already gone by for today
+           calendarComparison = now.compareTo(alarmTime);
+           if (calendarComparison == 1){
+               alarmTime.add(Calendar.DATE, 1);
+           }
+
+
             //Set a one time alarm
             if (repeatInterval == 0) {
-                alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
-                AlarmReceiver alarmReceiver = new AlarmReceiver(this); //http://stackoverflow.com/questions/16678763/the-method-getapplicationcontext-is-undefined
+                    alarmManager.set(AlarmManager.RTC, alarmTime.getTimeInMillis(), pendingIntent);
+                    AlarmReceiver alarmReceiver = new AlarmReceiver(this); //http://stackoverflow.com/questions/16678763/the-method-getapplicationcontext-is-undefined
 
-                Toast.makeText(AlarmActivity.this, "Your one time reminder is now set for " + hourSet + ":" + minuteSetString + amPmlabel, Toast
-                        .LENGTH_LONG)
-                        .show();
+                    Toast.makeText(AlarmActivity.this, "Your one time reminder is now set for " + hourSet + ":" + minuteSetString + amPmlabel, Toast
+                            .LENGTH_LONG)
+                            .show();
             }
 
             //Set a repeating alarm
             else {
-                alarmManager.setRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), repeatIntervalMilliseconds, pendingIntent);
+                alarmManager.setRepeating(AlarmManager.RTC, alarmTime.getTimeInMillis(), repeatIntervalMilliseconds, pendingIntent);
                 AlarmReceiver alarmReceiver = new AlarmReceiver(this); //http://stackoverflow.com/questions/16678763/the-method-getapplicationcontext-is-undefined
 
                     Toast.makeText(AlarmActivity.this, "Your reminder is now set for " + hourSet + ":" + minuteSetString + amPmlabel + " and will " +

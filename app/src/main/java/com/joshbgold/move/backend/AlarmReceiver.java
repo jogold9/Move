@@ -47,7 +47,7 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
         if(dayOfTheWeek == "Saturday" || dayOfTheWeek == "Sunday"  && noWeekends == true) {
             //Alarm is not wanted on the weekend
             try {
-                wait(1);  //waits for one-thoousandth of a millisecond
+                wait(1);  //waits for one-thousandth of a millisecond
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -56,7 +56,7 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
         else if ((currentHour < 9 || currentHour > 17)  && workHoursOnly == true){
             //Alarm outside of work hours
             try {
-                wait(1);  //waits for one-thoousandth of a millisecond
+                wait(1);  //waits for one-thousandth of a millisecond
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
