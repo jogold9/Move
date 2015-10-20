@@ -26,7 +26,7 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
     public void onReceive(final Context context, Intent intent) {
 
         Calendar calendar = Calendar.getInstance();
-        int currentHour = calendar.HOUR_OF_DAY;
+        int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
         int today = calendar.get(Calendar.DAY_OF_WEEK);
         boolean isWeekend = (today == Calendar.SUNDAY) || (today == Calendar.SATURDAY);
         boolean isOutsideWorkHours = (currentHour < 9) || (currentHour > 17);
