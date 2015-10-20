@@ -22,7 +22,6 @@ public class SettingsActivity extends Activity {
     private int repeatIntervalInMinutes = 0;  //Number of minutes that user wants alarm to repeat at (optional)
     private boolean blockWeekendAlarms = true;
     private boolean blockNonWorkAlarms = true;
-    private boolean test = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +32,6 @@ public class SettingsActivity extends Activity {
         final Button backButton = (Button) findViewById(R.id.backButton);
         final CheckBox blockWeekends = (CheckBox)findViewById(R.id.blockWeekends);
         final CheckBox blockNonWorkHours = (CheckBox)findViewById(R.id.blockNonWorkDayHours);
-        final CheckBox variableForTestingOnly = (CheckBox)findViewById(R.id.testCheckBox);
 
         volumeControl = (SeekBar) findViewById(R.id.volumeSeekBar);
 
@@ -71,18 +69,6 @@ public class SettingsActivity extends Activity {
             }
             else {
                 blockNonWorkHours.setChecked(false);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        try {
-            test = loadPrefs("testBoolean", test);
-            if (test == true) {
-                variableForTestingOnly.setChecked(true);
-            }
-            else {
-                variableForTestingOnly.setChecked(false);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -157,17 +143,8 @@ public class SettingsActivity extends Activity {
                 else {
                     savePrefs("workHoursOnly", false);
                 }
-
-                //for testing that preferences are working with this activity & with AlarmReceiver.java
-                if (variableForTestingOnly.isChecked()){
-                    savePrefs("testBoolean", true);
-                }
-                else {
-                    savePrefs("testBoolean", false);
-                }
             }
         };
-
         backButton.setOnClickListener(goBack);
 
     }

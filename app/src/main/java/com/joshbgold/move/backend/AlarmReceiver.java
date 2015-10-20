@@ -18,9 +18,8 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
 
     }
 
-    boolean noWeekends = true;
-    boolean workHoursOnly = true;
-    boolean variableForTestingOnly = false;
+    boolean noWeekends = false;
+    boolean workHoursOnly = false;
 
     @Override
     public void onReceive(final Context context, Intent intent) {
@@ -29,12 +28,16 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
         int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
         int today = calendar.get(Calendar.DAY_OF_WEEK);
         boolean isWeekend = (today == Calendar.SUNDAY) || (today == Calendar.SATURDAY);
-        boolean isOutsideWorkHours = (currentHour < 9) || (currentHour > 17);
+        boolean isOutsideWorkHours = (currentHour < 9) || (currentHour > 16);
 
         try {  //this value could be null if user has not set it...
-            noWeekends = loadPrefs("noWeekends", noWeekends);
             workHoursOnly = loadPrefs("workHoursOnly", workHoursOnly);
-            variableForTestingOnly = loadPrefs("testBoolean", variableForTestingOnly);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {  //this value could be null if user has not set it...
+        noWeekends = loadPrefs("noWeekends", noWeekends);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -50,14 +53,6 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
 
         else if (isOutsideWorkHours  && workHoursOnly == true){
             //Alarm not wanted outside of work hours
-            try {
-                Thread.sleep(1);  //waits for millisecond
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-        else if(variableForTestingOnly == true){
             try {
                 Thread.sleep(1);  //waits for millisecond
             } catch (InterruptedException e) {
