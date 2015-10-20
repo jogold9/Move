@@ -5,10 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v4.content.WakefulBroadcastReceiver;
-
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 public class AlarmReceiver extends WakefulBroadcastReceiver {
 
@@ -17,53 +14,59 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
         myContext = context;
     }
 
-    public AlarmReceiver(){
+    public AlarmReceiver() {
 
     }
 
-    //get the current day
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE");
-    Date date = new Date();
-    String dayOfTheWeek = simpleDateFormat.format(date);
-
-    Calendar calendar = Calendar.getInstance();
-    int currentHour = calendar.HOUR_OF_DAY;
-
     boolean noWeekends = true;
     boolean workHoursOnly = true;
+    boolean variableForTestingOnly = false;
 
     @Override
     public void onReceive(final Context context, Intent intent) {
 
+        Calendar calendar = Calendar.getInstance();
+        int currentHour = calendar.HOUR_OF_DAY;
+        int today = calendar.get(Calendar.DAY_OF_WEEK);
+        boolean isWeekend = (today == Calendar.SUNDAY) || (today == Calendar.SATURDAY);
+        boolean isOutsideWorkHours = (currentHour < 9) || (currentHour > 17);
 
         try {  //this value could be null if user has not set it...
             noWeekends = loadPrefs("noWeekends", noWeekends);
             workHoursOnly = loadPrefs("workHoursOnly", workHoursOnly);
+            variableForTestingOnly = loadPrefs("testBoolean", variableForTestingOnly);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-
-        if(dayOfTheWeek == "Saturday" || dayOfTheWeek == "Sunday"  && noWeekends == true) {
+        if(isWeekend && noWeekends == true) {
             //Alarm is not wanted on the weekend
             try {
-                wait(1);  //waits for one-thousandth of a millisecond
+                Thread.sleep(1);  //waits for millisecond
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
 
-        else if ((currentHour < 9 || currentHour > 17)  && workHoursOnly == true){
-            //Alarm outside of work hours
+        else if (isOutsideWorkHours  && workHoursOnly == true){
+            //Alarm not wanted outside of work hours
             try {
-                wait(1);  //waits for one-thousandth of a millisecond
+                Thread.sleep(1);  //waits for millisecond
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        else if(variableForTestingOnly == true){
+            try {
+                Thread.sleep(1);  //waits for millisecond
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
 
         else {
-
+            //Alarm is wanted, and should go off
             Intent myIntent = new Intent();
             myIntent.setClassName("com.joshbgold.move", "com.joshbgold.move.main.ReminderActivity");
             myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -77,5 +80,4 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
         boolean data = sharedPreferences.getBoolean(key, value);
         return data;
     }
-
 }
