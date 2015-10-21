@@ -20,8 +20,9 @@ public class SettingsActivity extends Activity {
     private float volume = (float) 0.50;
     private String repeatIntervalAsString = "";
     private int repeatIntervalInMinutes = 0;  //Number of minutes that user wants alarm to repeat at (optional)
-    private boolean blockWeekendAlarms = true;
-    private boolean blockNonWorkAlarms = true;
+    private boolean blockWeekendAlarms;
+    private boolean blockNonWorkHoursAlarms;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,48 +31,40 @@ public class SettingsActivity extends Activity {
 
         final EditText repeatIntervalEditText = (EditText) findViewById(R.id.repeatIntervalInMinutes);
         final Button backButton = (Button) findViewById(R.id.backButton);
-        final CheckBox blockWeekends = (CheckBox)findViewById(R.id.blockWeekends);
-        final CheckBox blockNonWorkHours = (CheckBox)findViewById(R.id.blockNonWorkDayHours);
+        final CheckBox blockWeekendsCheckBox = (CheckBox)findViewById(R.id.blockWeekends);
+        final CheckBox blockNonWorkHoursCheckBox = (CheckBox)findViewById(R.id.blockNonWorkDayHours);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         volumeControl = (SeekBar) findViewById(R.id.volumeSeekBar);
 
         //load user's previous settings if there were any. May be null.  Then attempt to set the saved values in the layout.
-        try {
-            volume = loadPrefs("volume", volume);
+        if(sharedPreferences.contains("volumeKey")) {
+            volume = loadPrefs("volumeKey", volume);
             volumeControl.setProgress((int)(volume*100));
-        } catch (Exception e) {
-            e.printStackTrace();
         }
 
-        try {
-            repeatIntervalInMinutes = loadPrefs("repeatInterval", repeatIntervalInMinutes);
+        if(sharedPreferences.contains("repeatIntervalKey")) {
+            repeatIntervalInMinutes = loadPrefs("repeatIntervalKey", repeatIntervalInMinutes);
             repeatIntervalEditText.setText(repeatIntervalInMinutes + "");
-        } catch (Exception e) {
-            e.printStackTrace();
         }
 
-        try {
-            blockWeekendAlarms = loadPrefs("noWeekends", blockWeekendAlarms);
-            if (blockWeekendAlarms == true){
-                blockWeekends.setChecked(true);
+        if (sharedPreferences.contains("noWeekendsKey")) {
+            blockWeekendAlarms = loadPrefs("noWeekendsKey", blockWeekendAlarms);
+            if (blockWeekendAlarms) {
+                blockWeekendsCheckBox.setChecked(true);
+            } else {
+                blockWeekendsCheckBox.setChecked(false);
             }
-            else{
-                    blockWeekends.setChecked(false);
-                }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
 
-        try {
-            blockNonWorkAlarms = loadPrefs("workHoursOnly", blockNonWorkAlarms);
-            if (blockNonWorkAlarms == true) {
-                blockNonWorkHours.setChecked(true);
+        if(sharedPreferences.contains("workHoursOnlyKey")){
+            blockNonWorkHoursAlarms = loadPrefs("workHoursOnlyKey", blockNonWorkHoursAlarms);
+            if (blockNonWorkHoursAlarms) {
+                blockNonWorkHoursCheckBox.setChecked(true);
             }
             else {
-                blockNonWorkHours.setChecked(false);
+                blockNonWorkHoursCheckBox.setChecked(false);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
 
         volumeControl.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -90,7 +83,7 @@ public class SettingsActivity extends Activity {
                         Toast.LENGTH_SHORT).show();*/
 
                 volume = (float) (((double) (progressChanged)) / 100);  //allows division w/ decimal results instead of integer results
-                savePrefs("volume", volume);
+                savePrefs("volumeKey", volume);
                 Toast.makeText(SettingsActivity.this, "Audio volume is set to: " + progressChanged + " %", Toast.LENGTH_SHORT).show();
             }
         });
@@ -99,7 +92,31 @@ public class SettingsActivity extends Activity {
             @Override
             public void onClick(View view) {
 
-                savePrefs("volume", volume);
+                //saves user preference for whether to have alarm on weekends
+                if (blockWeekendsCheckBox.isChecked()){
+                    savePrefs("noWeekendsKey", true);
+                    blockWeekendAlarms = loadPrefs("noWeekendsKey", blockWeekendAlarms);
+                }
+                else{
+                    savePrefs("noWeekendsKey", false);
+                    blockWeekendAlarms = loadPrefs("noWeekendsKey", blockWeekendAlarms);
+                }
+
+                //saves user preference for alarm during work hours / non-work hours
+                if (blockNonWorkHoursCheckBox.isChecked()){
+                    savePrefs("workHoursOnlyKey", true);
+                    blockNonWorkHoursAlarms = loadPrefs("workHoursOnlyKey", blockNonWorkHoursAlarms);
+                }
+                else {
+                    savePrefs("workHoursOnlyKey", false);
+                    blockNonWorkHoursAlarms = loadPrefs("workHoursOnlyKey", blockNonWorkHoursAlarms);
+                }
+
+                savePrefs("volumeKey", volume);
+
+                Toast.makeText(SettingsActivity.this, "blockWeekends is set to: " + blockWeekendAlarms, Toast.LENGTH_SHORT).show();
+                Toast.makeText(SettingsActivity.this, "BlockNonWorkHours is set to: " + blockNonWorkHoursAlarms, Toast.LENGTH_SHORT).show();
+
 
                 repeatIntervalAsString = repeatIntervalEditText.getText() + "";
 
@@ -107,7 +124,7 @@ public class SettingsActivity extends Activity {
 
                     if (repeatIntervalAsString == ""){
                         repeatIntervalInMinutes = 0;
-                        savePrefs("repeatInterval", repeatIntervalInMinutes);
+                        savePrefs("repeatIntervalKey", repeatIntervalInMinutes);
                         finish();
                     }
                     else {
@@ -118,7 +135,7 @@ public class SettingsActivity extends Activity {
                         }
                         else {
                             repeatIntervalInMinutes = Integer.valueOf(repeatIntervalAsString);
-                            savePrefs("repeatInterval", repeatIntervalInMinutes);
+                            savePrefs("repeatIntervalKey", repeatIntervalInMinutes);
                             finish();
                         }
                     }
@@ -126,22 +143,6 @@ public class SettingsActivity extends Activity {
                 } catch (NumberFormatException exception) {
                     Toast.makeText(SettingsActivity.this, "Please enter a number between 2 and 1440, or leave blank for a one-time alarm.", Toast
                             .LENGTH_LONG).show();
-                }
-
-                //saves user preference for whether to have alarm on weekends
-                if (blockWeekends.isChecked()){
-                    savePrefs("noWeekends", true);
-                }
-                else{
-                    savePrefs("noWeekends", false);
-                }
-
-                //saves user preference for alarm during work hours / non-work hours
-                if (blockNonWorkHours.isChecked()){
-                    savePrefs("workHoursOnly", true);
-                }
-                else {
-                    savePrefs("workHoursOnly", false);
                 }
             }
         };

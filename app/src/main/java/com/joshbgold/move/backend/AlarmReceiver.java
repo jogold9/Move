@@ -18,8 +18,8 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
 
     }
 
-    private boolean noWeekends = false;
     private boolean workHoursOnly = false;
+    private boolean noWeekends = false;
     SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(myContext);
 
     @Override
@@ -32,8 +32,8 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
         boolean isOutsideWorkHours = (currentHour < 9) || (currentHour > 16);
 
 
-       if(sharedPreferences.contains("workHoursOnly")) {
-           workHoursOnly = loadPrefs("workHoursOnly", workHoursOnly);
+       if(sharedPreferences.contains("workHoursOnlyKey")) {
+           workHoursOnly = loadPrefs("workHoursOnlyKey", workHoursOnly);
        }
 
        /* try {  //this value could be null if user has not set it...
@@ -43,8 +43,8 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
         }
        */
 
-        if(sharedPreferences.contains("noWeekends")) {
-            noWeekends = loadPrefs("noWeekends", noWeekends);
+        if(sharedPreferences.contains("noWeekendsKey")) {
+            noWeekends = loadPrefs("noWeekendsKey", noWeekends);
         }
 
         /*try {  //this value could be null if user has not set it...
