@@ -18,8 +18,9 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
 
     }
 
-    boolean noWeekends = false;
-    boolean workHoursOnly = false;
+    private boolean noWeekends = false;
+    private boolean workHoursOnly = false;
+    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(myContext);
 
     @Override
     public void onReceive(final Context context, Intent intent) {
@@ -30,19 +31,29 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
         boolean isWeekend = (today == Calendar.SUNDAY) || (today == Calendar.SATURDAY);
         boolean isOutsideWorkHours = (currentHour < 9) || (currentHour > 16);
 
-        try {  //this value could be null if user has not set it...
+
+       if(sharedPreferences.contains("workHoursOnly")) {
+           workHoursOnly = loadPrefs("workHoursOnly", workHoursOnly);
+       }
+
+       /* try {  //this value could be null if user has not set it...
             workHoursOnly = loadPrefs("workHoursOnly", workHoursOnly);
         } catch (Exception e) {
             e.printStackTrace();
         }
+       */
 
-        try {  //this value could be null if user has not set it...
+        if(sharedPreferences.contains("noWeekends")) {
+            noWeekends = loadPrefs("noWeekends", noWeekends);
+        }
+
+        /*try {  //this value could be null if user has not set it...
         noWeekends = loadPrefs("noWeekends", noWeekends);
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
 
-        if(isWeekend && noWeekends == true) {
+        if(isWeekend && noWeekends) {
             //Alarm is not wanted on the weekend
             try {
                 Thread.sleep(1);  //waits for millisecond
@@ -51,7 +62,7 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
             }
         }
 
-        else if (isOutsideWorkHours  && workHoursOnly == true){
+        else if (isOutsideWorkHours  && workHoursOnly){
             //Alarm not wanted outside of work hours
             try {
                 Thread.sleep(1);  //waits for millisecond
