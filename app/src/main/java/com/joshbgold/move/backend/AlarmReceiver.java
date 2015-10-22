@@ -5,10 +5,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v4.content.WakefulBroadcastReceiver;
+
 import java.util.Calendar;
 
 public class AlarmReceiver extends WakefulBroadcastReceiver {
 
+
+    //sharedPreferences not pulling the same default preferences yet, I think the context has something to do with it.
+    //may need to learn how to using a specific named sharedPreferences file instead of using the default sharedPreferences file
     Context myContext;
     public AlarmReceiver(Context context){
         myContext = context;
@@ -20,7 +24,6 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
 
     private boolean workHoursOnly = false;
     private boolean noWeekends = false;
-    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(myContext);
 
     @Override
     public void onReceive(final Context context, Intent intent) {
@@ -31,30 +34,19 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
         boolean isWeekend = (today == Calendar.SUNDAY) || (today == Calendar.SATURDAY);
         boolean isOutsideWorkHours = (currentHour < 9) || (currentHour > 16);
 
-
-       if(sharedPreferences.contains("workHoursOnlyKey")) {
-           workHoursOnly = loadPrefs("workHoursOnlyKey", workHoursOnly);
-       }
-
-       /* try {  //this value could be null if user has not set it...
-            workHoursOnly = loadPrefs("workHoursOnly", workHoursOnly);
+         try {  //this value could be null if user has not set it...
+             workHoursOnly = loadPrefs("workHoursOnlyKey", workHoursOnly);
         } catch (Exception e) {
             e.printStackTrace();
         }
-       */
 
-        if(sharedPreferences.contains("noWeekendsKey")) {
-            noWeekends = loadPrefs("noWeekendsKey", noWeekends);
-        }
-
-        /*try {  //this value could be null if user has not set it...
-        noWeekends = loadPrefs("noWeekends", noWeekends);
+        try {  //this value could be null if user has not set it...
+          noWeekends = loadPrefs("noWeekendsKey", noWeekends);
         } catch (Exception e) {
             e.printStackTrace();
-        }*/
+        }
 
         if(isWeekend && noWeekends) {
-            //Alarm is not wanted on the weekend
             try {
                 Thread.sleep(1);  //waits for millisecond
             } catch (InterruptedException e) {
@@ -78,6 +70,14 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
             myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(myIntent);
         }
+
+    }
+
+    //check if a prefs key exists
+    private boolean checkPrefs(String key){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(myContext);
+        boolean exists = sharedPreferences.contains(key);
+        return exists;
     }
 
     //get prefs

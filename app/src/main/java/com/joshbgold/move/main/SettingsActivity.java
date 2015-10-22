@@ -114,9 +114,10 @@ public class SettingsActivity extends Activity {
 
                 savePrefs("volumeKey", volume);
 
-                Toast.makeText(SettingsActivity.this, "blockWeekends is set to: " + blockWeekendAlarms, Toast.LENGTH_SHORT).show();
-                Toast.makeText(SettingsActivity.this, "BlockNonWorkHours is set to: " + blockNonWorkHoursAlarms, Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(SettingsActivity.this, "Block reminders on weekends check box is set to: " + blockWeekendAlarms
+                        + ". Your alarm will not go off on weekends.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SettingsActivity.this, "Block reminders outside 9 a.m. - 5 p.m. check box is set to: " + blockNonWorkHoursAlarms
+                        + "." + " Your alarm will not go off outside 9 a.m. - 5 p.m.", Toast.LENGTH_SHORT).show();
 
                 repeatIntervalAsString = repeatIntervalEditText.getText() + "";
 
