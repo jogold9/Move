@@ -31,9 +31,7 @@ public class ReminderActivity extends Activity {
     private String quoteString = "";
     private String lastMovesInstruction ="";
     private static PendingIntent pendingIntent;
-    private float volume;
-    private float volumePercent;
-    private final static int MAX_VOLUME = 100;
+    private float volume = (float) 0.5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,18 +43,6 @@ public class ReminderActivity extends Activity {
         final Button cancelButton = (Button) findViewById(R.id.cancelAllButton);
         final Button exitButton = (Button) findViewById(R.id.exitButton);
         final MediaPlayer mediaPlayer = MediaPlayer.create(this, R.drawable.om_mani_short); //used to play mp3 audio file
-
-  /*      boolean blockWeekendAlarms = false;
-        boolean blockNonWorkHoursAlarms = false;
-
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        if(sharedPreferences.contains("noWeekendsKey")){
-            blockWeekendAlarms = loadPreferences("noWeekendsKey", blockWeekendAlarms);
-        }
-
-        if(sharedPreferences.contains("workHoursOnlyKey")){
-            blockNonWorkHoursAlarms = loadPreferences("workHoursOnlyKey", blockNonWorkHoursAlarms);
-        }*/
 
 
         //vibrate the device for 1/2 second if the device is capable
@@ -74,8 +60,7 @@ public class ReminderActivity extends Activity {
             }
         });
 
-        volume = loadPreferences("volume", volume); //gets the current volume
-        volumePercent = volume * 100;
+        volume = loadPreferences("volumeKey", volume); //gets the current volume
 
         mediaPlayer.setVolume(volume, volume); //sets right speaker volume and left speaker volume for mediaPlayer
         mediaPlayer.start();
@@ -85,9 +70,6 @@ public class ReminderActivity extends Activity {
         movesString = moveObject.getMoves();
         lastMovesInstruction = movesString; //store for later use for back button
         movesAndQuotesTextView.setText(movesString);
-
-        //Toast.makeText(ReminderActivity.this, "blockWeekends is set to: " + blockWeekendAlarms, Toast.LENGTH_SHORT).show();
-        //Toast.makeText(ReminderActivity.this, "BlockNonWorkHours is set to: " + blockNonWorkHoursAlarms, Toast.LENGTH_SHORT).show();
 
         //cancel all alarms
         View.OnClickListener cancelAll = new View.OnClickListener(){
@@ -161,14 +143,6 @@ public class ReminderActivity extends Activity {
     //get prefs
     private float loadPreferences(String key, float value){
         SharedPreferences sharedPreferences = getSharedPreferences("MoveAppPrefs", Context.MODE_PRIVATE);
-        //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         return sharedPreferences.getFloat(key, value);
     }
-
-/*    //get prefs
-    private boolean loadPreferences(String key,boolean value) {
-        SharedPreferences sharedPreferences = getSharedPreferences("MoveAppPrefs", Context.MODE_PRIVATE);
-        //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        return sharedPreferences.getBoolean(key, value);
-    }*/
 }

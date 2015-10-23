@@ -34,7 +34,6 @@ public class SettingsActivity extends Activity {
         final CheckBox blockWeekendsCheckBox = (CheckBox)findViewById(R.id.blockWeekends);
         final CheckBox blockNonWorkHoursCheckBox = (CheckBox)findViewById(R.id.blockNonWorkDayHours);
 
-
         volumeControl = (SeekBar) findViewById(R.id.volumeSeekBar);
 
             volume = loadPrefs("volumeKey", volume);
@@ -42,8 +41,6 @@ public class SettingsActivity extends Activity {
 
             repeatIntervalInMinutes = loadPrefs("repeatIntervalKey", repeatIntervalInMinutes);
             repeatIntervalEditText.setText(repeatIntervalInMinutes + "");
-
-
 
             blockWeekendAlarms = loadPrefs("noWeekendsKey", blockWeekendAlarms);
             if (blockWeekendAlarms) {
@@ -60,7 +57,6 @@ public class SettingsActivity extends Activity {
                 blockNonWorkHoursCheckBox.setChecked(false);
             }
 
-
         volumeControl.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int progressChanged = 0;
 
@@ -73,8 +69,6 @@ public class SettingsActivity extends Activity {
             }
 
             public void onStopTrackingTouch(SeekBar seekBar) {
-               /* Toast.makeText(SetVolumeActivity.this, "seek bar progress:" + progressChanged,
-                        Toast.LENGTH_SHORT).show();*/
 
                 volume = (float) (((double) (progressChanged)) / 100);  //allows division w/ decimal results instead of integer results
                 savePrefs("volumeKey", volume);
@@ -107,11 +101,6 @@ public class SettingsActivity extends Activity {
                 }
 
                 savePrefs("volumeKey", volume);
-
-              /*  Toast.makeText(SettingsActivity.this, "Block reminders on weekends check box is set to: " + blockWeekendAlarms, Toast.LENGTH_LONG)
-                        .show();
-                Toast.makeText(SettingsActivity.this, "Block reminders outside 9 a.m. - 5 p.m. check box is set to: " + blockNonWorkHoursAlarms,
-                        Toast.LENGTH_LONG).show();*/
 
                 repeatIntervalAsString = repeatIntervalEditText.getText() + "";
 
@@ -156,7 +145,6 @@ public class SettingsActivity extends Activity {
 
     public void savePrefs(String key, int value){
         SharedPreferences sharedPreferences = getSharedPreferences("MoveAppPrefs", Context.MODE_PRIVATE);
-        //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(key, value);
         editor.commit();
@@ -165,7 +153,6 @@ public class SettingsActivity extends Activity {
     //save prefs
     public void savePrefs(String key, boolean value){
         SharedPreferences sharedPreferences = getSharedPreferences("MoveAppPrefs", Context.MODE_PRIVATE);
-        //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(key, value);
         editor.commit();
@@ -174,21 +161,18 @@ public class SettingsActivity extends Activity {
     //get prefs
     private float loadPrefs(String key,float value) {
         SharedPreferences sharedPreferences = getSharedPreferences("MoveAppPrefs", Context.MODE_PRIVATE);
-        //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
          return sharedPreferences.getFloat(key, value);
     }
 
     //get prefs
     private int loadPrefs(String key,int value) {
         SharedPreferences sharedPreferences = getSharedPreferences("MoveAppPrefs", Context.MODE_PRIVATE);
-        //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         return sharedPreferences.getInt(key, value);
     }
 
     //get prefs
     private boolean loadPrefs(String key,boolean value) {
         SharedPreferences sharedPreferences = getSharedPreferences("MoveAppPrefs", Context.MODE_PRIVATE);
-        //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         return sharedPreferences.getBoolean(key, value);
     }
 }

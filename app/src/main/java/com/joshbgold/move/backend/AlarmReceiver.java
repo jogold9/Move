@@ -72,17 +72,9 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
 
     }
 
-/*    //check if a prefs key exists
-    private boolean checkPrefs(String key){
-        SharedPreferences sharedPreferences = getSharedPreferences("MoveAppPrefs", Context.MODE_PRIVATE);
-        boolean exists = sharedPreferences.contains(key);
-        return exists;
-    }*/
-
     //get prefs
     private boolean loadPrefs(String key,boolean value) {
         SharedPreferences sharedPreferences = onReceiveContext.getSharedPreferences("MoveAppPrefs", Context.MODE_PRIVATE);
-       //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(myContext);
         return sharedPreferences.getBoolean(key, value);
     }
 }
