@@ -175,23 +175,20 @@ public class SettingsActivity extends Activity {
     private float loadPrefs(String key,float value) {
         SharedPreferences sharedPreferences = getSharedPreferences("MoveAppPrefs", Context.MODE_PRIVATE);
         //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        float data = sharedPreferences.getFloat(key, value);
-        return data;
+         return sharedPreferences.getFloat(key, value);
     }
 
     //get prefs
     private int loadPrefs(String key,int value) {
         SharedPreferences sharedPreferences = getSharedPreferences("MoveAppPrefs", Context.MODE_PRIVATE);
         //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        int data = sharedPreferences.getInt(key, value);
-        return data;
+        return sharedPreferences.getInt(key, value);
     }
 
     //get prefs
     private boolean loadPrefs(String key,boolean value) {
         SharedPreferences sharedPreferences = getSharedPreferences("MoveAppPrefs", Context.MODE_PRIVATE);
         //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        boolean data = sharedPreferences.getBoolean(key, value);
-        return data;
+        return sharedPreferences.getBoolean(key, value);
     }
 }

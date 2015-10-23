@@ -201,8 +201,7 @@ public class AlarmActivity extends Activity {
     //get prefs
     private int LoadPreferences(String key, int value){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        int data = sharedPreferences.getInt(key, value);
-        return data;
+        return sharedPreferences.getInt(key, value);
     }
 
     private void turnOffAudio(){

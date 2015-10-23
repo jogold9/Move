@@ -83,7 +83,6 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
     private boolean loadPrefs(String key,boolean value) {
         SharedPreferences sharedPreferences = onReceiveContext.getSharedPreferences("MoveAppPrefs", Context.MODE_PRIVATE);
        //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(myContext);
-        boolean data = sharedPreferences.getBoolean(key, value);
-        return data;
+        return sharedPreferences.getBoolean(key, value);
     }
 }
