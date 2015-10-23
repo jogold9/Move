@@ -108,14 +108,16 @@ public class SettingsActivity extends Activity {
 
                 savePrefs("volumeKey", volume);
 
-                Toast.makeText(SettingsActivity.this, "Block reminders on weekends check box is set to: " + blockWeekendAlarms, Toast.LENGTH_LONG).show();
-                Toast.makeText(SettingsActivity.this, "Block reminders outside 9 a.m. - 5 p.m. check box is set to: " + blockNonWorkHoursAlarms, Toast.LENGTH_LONG).show();
+              /*  Toast.makeText(SettingsActivity.this, "Block reminders on weekends check box is set to: " + blockWeekendAlarms, Toast.LENGTH_LONG)
+                        .show();
+                Toast.makeText(SettingsActivity.this, "Block reminders outside 9 a.m. - 5 p.m. check box is set to: " + blockNonWorkHoursAlarms,
+                        Toast.LENGTH_LONG).show();*/
 
                 repeatIntervalAsString = repeatIntervalEditText.getText() + "";
 
                 try {
 
-                    if (repeatIntervalAsString == ""){
+                    if (repeatIntervalAsString.equals("")){
                         repeatIntervalInMinutes = 0;
                         savePrefs("repeatIntervalKey", repeatIntervalInMinutes);
                         finish();
