@@ -24,8 +24,15 @@ public class Quotations {
         "“There is no such joy in the tavern as upon the road thereto.” - Cormac McCarthy",
         "“If you want one thing too much it's likely to be a disappointment. The healthy way is to learn to like the everyday things...” - Larry " +
                 "McMurtry",
-        "“There is no bad weather, only inappropriate clothing.” - Sir Ranalph Fiennes"
-
+        "“There is no bad weather, only inappropriate clothing.” - Sir Ranalph Fiennes",
+        "“You only lose what you cling to.” ― Gautama Buddha",
+        "“No one saves us but ourselves. No one can and no one may. We ourselves must walk the path.” ― Gautama Buddha ",
+        "“If you want to take care of tomorrow, take better care of today. We always live now.” ― Dainin Katagiri",
+        "“Let the breath lead the way.” ― Sharon Salzberg",
+        "“Suffering usually relates to wanting things to be different from the way they are.” - Alan Lokos",
+        "“Everything is connected.” - Alan Moore",
+        "“Whenever ego suffers from fear of death & your practice turns to seeing impermanence, ego settles down.” - Tsoknyi Rinpoche"
+        
     };
 
     public String getQuote(){
