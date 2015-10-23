@@ -10,7 +10,6 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Vibrator;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -47,7 +46,7 @@ public class ReminderActivity extends Activity {
         final Button exitButton = (Button) findViewById(R.id.exitButton);
         final MediaPlayer mediaPlayer = MediaPlayer.create(this, R.drawable.om_mani_short); //used to play mp3 audio file
 
-        boolean blockWeekendAlarms = false;
+  /*      boolean blockWeekendAlarms = false;
         boolean blockNonWorkHoursAlarms = false;
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -57,7 +56,7 @@ public class ReminderActivity extends Activity {
 
         if(sharedPreferences.contains("workHoursOnlyKey")){
             blockNonWorkHoursAlarms = loadPreferences("workHoursOnlyKey", blockNonWorkHoursAlarms);
-        }
+        }*/
 
 
         //vibrate the device for 1/2 second if the device is capable
@@ -87,8 +86,8 @@ public class ReminderActivity extends Activity {
         lastMovesInstruction = movesString; //store for later use for back button
         movesAndQuotesTextView.setText(movesString);
 
-        Toast.makeText(ReminderActivity.this, "blockWeekends is set to: " + blockWeekendAlarms, Toast.LENGTH_SHORT).show();
-        Toast.makeText(ReminderActivity.this, "BlockNonWorkHours is set to: " + blockNonWorkHoursAlarms, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(ReminderActivity.this, "blockWeekends is set to: " + blockWeekendAlarms, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(ReminderActivity.this, "BlockNonWorkHours is set to: " + blockNonWorkHoursAlarms, Toast.LENGTH_SHORT).show();
 
         //cancel all alarms
         View.OnClickListener cancelAll = new View.OnClickListener(){
@@ -109,7 +108,6 @@ public class ReminderActivity extends Activity {
                 } catch (Exception e) {
                     Log.d("Alarm Activity", e.toString());
                 }
-
 
                 Toast.makeText(ReminderActivity.this, "Alarms Canceled", Toast.LENGTH_LONG).show();
             }
@@ -132,9 +130,7 @@ public class ReminderActivity extends Activity {
             }
         };
 
-
-
-//        backButton.setOnClickListener(goBack);
+//      backButton.setOnClickListener(goBack);
         cancelButton.setOnClickListener(cancelAll);
         exitButton.setOnClickListener(quitApp);
 
@@ -151,8 +147,6 @@ public class ReminderActivity extends Activity {
             }
         }, 20000);  //equivalent to twenty seconds
 
-
-
     }
 
     public void onToggleClicked(View view){
@@ -166,15 +160,15 @@ public class ReminderActivity extends Activity {
 
     //get prefs
     private float loadPreferences(String key, float value){
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        float data = sharedPreferences.getFloat(key, value);
-        return data;
+        SharedPreferences sharedPreferences = getSharedPreferences("MoveAppPrefs", Context.MODE_PRIVATE);
+        //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        return sharedPreferences.getFloat(key, value);
     }
 
-    //get prefs
+/*    //get prefs
     private boolean loadPreferences(String key,boolean value) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        boolean data = sharedPreferences.getBoolean(key, value);
-        return data;
-    }
+        SharedPreferences sharedPreferences = getSharedPreferences("MoveAppPrefs", Context.MODE_PRIVATE);
+        //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        return sharedPreferences.getBoolean(key, value);
+    }*/
 }
