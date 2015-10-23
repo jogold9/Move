@@ -32,7 +32,7 @@ public class Quotations {
         "“Suffering usually relates to wanting things to be different from the way they are.” - Alan Lokos",
         "“Everything is connected.” - Alan Moore",
         "“Whenever ego suffers from fear of death & your practice turns to seeing impermanence, ego settles down.” - Tsoknyi Rinpoche"
-        
+
     };
 
     public String getQuote(){
