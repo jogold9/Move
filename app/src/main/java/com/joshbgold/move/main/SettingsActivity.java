@@ -1,9 +1,9 @@
 package com.joshbgold.move.main;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -20,8 +20,8 @@ public class SettingsActivity extends Activity {
     private float volume = (float) 0.50;
     private String repeatIntervalAsString = "";
     private int repeatIntervalInMinutes = 0;  //Number of minutes that user wants alarm to repeat at (optional)
-    private boolean blockWeekendAlarms;
-    private boolean blockNonWorkHoursAlarms;
+    private boolean blockWeekendAlarms = false;
+    private boolean blockNonWorkHoursAlarms = false;
 
 
     @Override
@@ -33,31 +33,25 @@ public class SettingsActivity extends Activity {
         final Button backButton = (Button) findViewById(R.id.backButton);
         final CheckBox blockWeekendsCheckBox = (CheckBox)findViewById(R.id.blockWeekends);
         final CheckBox blockNonWorkHoursCheckBox = (CheckBox)findViewById(R.id.blockNonWorkDayHours);
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
 
         volumeControl = (SeekBar) findViewById(R.id.volumeSeekBar);
 
-        //load user's previous settings if there were any. May be null.  Then attempt to set the saved values in the layout.
-        if(sharedPreferences.contains("volumeKey")) {
             volume = loadPrefs("volumeKey", volume);
             volumeControl.setProgress((int)(volume*100));
-        }
 
-        if(sharedPreferences.contains("repeatIntervalKey")) {
             repeatIntervalInMinutes = loadPrefs("repeatIntervalKey", repeatIntervalInMinutes);
             repeatIntervalEditText.setText(repeatIntervalInMinutes + "");
-        }
 
-        if (sharedPreferences.contains("noWeekendsKey")) {
+
+
             blockWeekendAlarms = loadPrefs("noWeekendsKey", blockWeekendAlarms);
             if (blockWeekendAlarms) {
                 blockWeekendsCheckBox.setChecked(true);
             } else {
                 blockWeekendsCheckBox.setChecked(false);
             }
-        }
 
-        if(sharedPreferences.contains("workHoursOnlyKey")){
             blockNonWorkHoursAlarms = loadPrefs("workHoursOnlyKey", blockNonWorkHoursAlarms);
             if (blockNonWorkHoursAlarms) {
                 blockNonWorkHoursCheckBox.setChecked(true);
@@ -65,7 +59,7 @@ public class SettingsActivity extends Activity {
             else {
                 blockNonWorkHoursCheckBox.setChecked(false);
             }
-        }
+
 
         volumeControl.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int progressChanged = 0;
@@ -114,10 +108,8 @@ public class SettingsActivity extends Activity {
 
                 savePrefs("volumeKey", volume);
 
-                Toast.makeText(SettingsActivity.this, "Block reminders on weekends check box is set to: " + blockWeekendAlarms
-                        + ". Your alarm will not go off on weekends.", Toast.LENGTH_SHORT).show();
-                Toast.makeText(SettingsActivity.this, "Block reminders outside 9 a.m. - 5 p.m. check box is set to: " + blockNonWorkHoursAlarms
-                        + "." + " Your alarm will not go off outside 9 a.m. - 5 p.m.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SettingsActivity.this, "Block reminders on weekends check box is set to: " + blockWeekendAlarms, Toast.LENGTH_LONG).show();
+                Toast.makeText(SettingsActivity.this, "Block reminders outside 9 a.m. - 5 p.m. check box is set to: " + blockNonWorkHoursAlarms, Toast.LENGTH_LONG).show();
 
                 repeatIntervalAsString = repeatIntervalEditText.getText() + "";
 
@@ -153,14 +145,16 @@ public class SettingsActivity extends Activity {
 
     //save prefs
     public void savePrefs(String key, float value){
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences sharedPreferences = getSharedPreferences("MoveAppPrefs", Context.MODE_PRIVATE);
+        //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putFloat(key, value);
         editor.commit();
     }
 
     public void savePrefs(String key, int value){
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences sharedPreferences = getSharedPreferences("MoveAppPrefs", Context.MODE_PRIVATE);
+        //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(key, value);
         editor.commit();
@@ -168,7 +162,8 @@ public class SettingsActivity extends Activity {
 
     //save prefs
     public void savePrefs(String key, boolean value){
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences sharedPreferences = getSharedPreferences("MoveAppPrefs", Context.MODE_PRIVATE);
+        //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(key, value);
         editor.commit();
@@ -176,21 +171,24 @@ public class SettingsActivity extends Activity {
 
     //get prefs
     private float loadPrefs(String key,float value) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences sharedPreferences = getSharedPreferences("MoveAppPrefs", Context.MODE_PRIVATE);
+        //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         float data = sharedPreferences.getFloat(key, value);
         return data;
     }
 
     //get prefs
     private int loadPrefs(String key,int value) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences sharedPreferences = getSharedPreferences("MoveAppPrefs", Context.MODE_PRIVATE);
+        //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         int data = sharedPreferences.getInt(key, value);
         return data;
     }
 
     //get prefs
     private boolean loadPrefs(String key,boolean value) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences sharedPreferences = getSharedPreferences("MoveAppPrefs", Context.MODE_PRIVATE);
+        //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         boolean data = sharedPreferences.getBoolean(key, value);
         return data;
     }

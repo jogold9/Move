@@ -3,7 +3,6 @@ package com.joshbgold.move.backend;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
 import java.util.Calendar;
@@ -11,9 +10,16 @@ import java.util.Calendar;
 public class AlarmReceiver extends WakefulBroadcastReceiver {
 
 
-    //sharedPreferences not pulling the same default preferences yet, I think the context has something to do with it.
-    //may need to learn how to using a specific named sharedPreferences file instead of using the default sharedPreferences file
+ /*  sharedPreferences not pulling the same default preferences yet, I think the context has something to do with it. May need to learn how to
+    using a specific named sharedPreferences file instead of using the default sharedPreferences file
+    http://stackoverflow.com/questions/14658469/android-intent-context-confusing
+
+    "BroadcastReceivers do not inherit context either. In fact, they do not contain context at all, but simply receive the current context when an
+    event is received (Such as onReceive(Context context, Intent intent))" */
+
     Context myContext;
+    Context onReceiveContext;
+
     public AlarmReceiver(Context context){
         myContext = context;
     }
@@ -27,6 +33,7 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
 
     @Override
     public void onReceive(final Context context, Intent intent) {
+        onReceiveContext = context;
 
         Calendar calendar = Calendar.getInstance();
         int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
@@ -34,17 +41,9 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
         boolean isWeekend = (today == Calendar.SUNDAY) || (today == Calendar.SATURDAY);
         boolean isOutsideWorkHours = (currentHour < 9) || (currentHour > 16);
 
-         try {  //this value could be null if user has not set it...
-             workHoursOnly = loadPrefs("workHoursOnlyKey", workHoursOnly);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        workHoursOnly = loadPrefs("workHoursOnlyKey", workHoursOnly);
 
-        try {  //this value could be null if user has not set it...
-          noWeekends = loadPrefs("noWeekendsKey", noWeekends);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        noWeekends = loadPrefs("noWeekendsKey", noWeekends);
 
         if(isWeekend && noWeekends) {
             try {
@@ -73,16 +72,17 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
 
     }
 
-    //check if a prefs key exists
+/*    //check if a prefs key exists
     private boolean checkPrefs(String key){
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(myContext);
+        SharedPreferences sharedPreferences = getSharedPreferences("MoveAppPrefs", Context.MODE_PRIVATE);
         boolean exists = sharedPreferences.contains(key);
         return exists;
-    }
+    }*/
 
     //get prefs
     private boolean loadPrefs(String key,boolean value) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(myContext);
+        SharedPreferences sharedPreferences = onReceiveContext.getSharedPreferences("MoveAppPrefs", Context.MODE_PRIVATE);
+       //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(myContext);
         boolean data = sharedPreferences.getBoolean(key, value);
         return data;
     }
