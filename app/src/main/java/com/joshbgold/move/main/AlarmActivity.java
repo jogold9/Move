@@ -32,7 +32,7 @@ public class AlarmActivity extends Activity {
     private TimePicker alarmTimePicker;
     private static Context context;
     private final float mediaPlayerVolume = (float)0.3;
-    int repeatInterval = 0; //i.e. 1000*60*2 (1000 milliseconds * 60 seconds * 2 repeats alarm every two minutes)
+    int repeatIntervalHours = 0;
     int repeatIntervalMilliseconds = 0;
     private int hourSet = 0;
     private int minuteSet = 0;
@@ -143,9 +143,9 @@ public class AlarmActivity extends Activity {
             Intent myIntent = new Intent(AlarmActivity.this, AlarmReceiver.class);
             pendingIntent = PendingIntent.getBroadcast(AlarmActivity.this, 0, myIntent, 0);
 
-            repeatInterval = LoadPreferences("repeatInterval", repeatInterval);  //gets number of minutes reminder should repeat
+            repeatIntervalHours = LoadPreferences("repeatIntervalHours", repeatIntervalHours);  //gets number of hours reminder should repeat
 
-            repeatIntervalMilliseconds = repeatInterval * 1000 * 60;  //converts repeating interval to milliseconds for setRepeating method
+            repeatIntervalMilliseconds = repeatIntervalHours * 1000 * 60 * 60;  //converts to milliseconds units that setRepeating method requires
 
            //check whether target time has already passed for today. Add 1 day to alarmTime if it has already gone by for today
            calendarComparison = now.compareTo(alarmTime);
@@ -155,7 +155,7 @@ public class AlarmActivity extends Activity {
 
 
             //Set a one time alarm
-            if (repeatInterval == 0) {
+            if (repeatIntervalHours == 0) {
                     alarmManager.set(AlarmManager.RTC, alarmTime.getTimeInMillis(), pendingIntent);
                     AlarmReceiver alarmReceiver = new AlarmReceiver(this); //http://stackoverflow.com/questions/16678763/the-method-getapplicationcontext-is-undefined
 
@@ -169,11 +169,13 @@ public class AlarmActivity extends Activity {
                 alarmManager.setRepeating(AlarmManager.RTC, alarmTime.getTimeInMillis(), repeatIntervalMilliseconds, pendingIntent);
                 AlarmReceiver alarmReceiver = new AlarmReceiver(this); //http://stackoverflow.com/questions/16678763/the-method-getapplicationcontext-is-undefined
 
+                if (repeatIntervalHours == 1){
                     Toast.makeText(AlarmActivity.this, "Your reminder is now set for " + hourSet + ":" + minuteSetString + amPmlabel + " and will " +
-                            "repeat " +
-                            "every " +
-                            repeatInterval + " minutes.", Toast.LENGTH_LONG).show();
-
+                            "repeat " + "every hour.", Toast.LENGTH_LONG).show();}
+                else {
+                    Toast.makeText(AlarmActivity.this, "Your reminder is now set for " + hourSet + ":" + minuteSetString + amPmlabel + " and will " +
+                            "repeat " + "every " + repeatIntervalHours + " hours.", Toast.LENGTH_LONG).show();
+                }
             }
 
         } else {

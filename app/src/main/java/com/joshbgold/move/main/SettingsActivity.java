@@ -19,7 +19,7 @@ public class SettingsActivity extends Activity {
     private SeekBar volumeControl = null;
     private float volume = (float) 0.50;
     private String repeatIntervalAsString = "";
-    private int repeatIntervalInMinutes = 0;  //Number of minutes that user wants alarm to repeat at (optional)
+    private int repeatIntervalInHours = 0;  //Number of hours that user wants alarm to repeat at (optional)
     private boolean blockWeekendAlarms = false;
     private boolean blockNonWorkHoursAlarms = false;
 
@@ -39,8 +39,8 @@ public class SettingsActivity extends Activity {
             volume = loadPrefs("volumeKey", volume);
             volumeControl.setProgress((int)(volume*100));
 
-            repeatIntervalInMinutes = loadPrefs("repeatIntervalKey", repeatIntervalInMinutes);
-            repeatIntervalEditText.setText(repeatIntervalInMinutes + "");
+            repeatIntervalInHours = loadPrefs("repeatIntervalKey", repeatIntervalInHours);
+            repeatIntervalEditText.setText(repeatIntervalInHours + "");
 
             blockWeekendAlarms = loadPrefs("noWeekendsKey", blockWeekendAlarms);
             if (blockWeekendAlarms) {
@@ -107,19 +107,19 @@ public class SettingsActivity extends Activity {
                 try {
 
                     if (repeatIntervalAsString.equals("")){
-                        repeatIntervalInMinutes = 0;
-                        savePrefs("repeatIntervalKey", repeatIntervalInMinutes);
+                        repeatIntervalInHours = 0;
+                        savePrefs("repeatIntervalKey", repeatIntervalInHours);
                         finish();
                     }
                     else {
                         Integer repeatIntervalAsInt = Integer.parseInt(repeatIntervalAsString);
-                        if (repeatIntervalAsInt != 0 && repeatIntervalAsInt < 2 || repeatIntervalAsInt > 1440){
-                            Toast.makeText(SettingsActivity.this, "Please enter a number between 2 and 1440, or leave blank for a one-time alarm.",
+                        if (repeatIntervalAsInt != 0 && repeatIntervalAsInt < 1 || repeatIntervalAsInt > 24){
+                            Toast.makeText(SettingsActivity.this, "Please enter a number between 1 and 24, or leave blank for a one-time alarm.",
                                     Toast.LENGTH_LONG).show();
                         }
                         else {
-                            repeatIntervalInMinutes = Integer.valueOf(repeatIntervalAsString);
-                            savePrefs("repeatIntervalKey", repeatIntervalInMinutes);
+                            repeatIntervalInHours = Integer.valueOf(repeatIntervalAsString);
+                            savePrefs("repeatIntervalKey", repeatIntervalInHours);
                             finish();
                         }
                     }

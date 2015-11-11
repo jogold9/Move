@@ -54,7 +54,7 @@
             android:textAppearance="?android:attr/textAppearanceListItem"
             android:background="#FFFFFF"
             android:alpha="0.50"
-            android:text=" Repeat Interval in Minutes: "
+            android:text=" Repeat Interval in Hours: "
             android:id="@+id/repeatInterval"
             android:layout_marginRight="5dp"
             android:textAlignment="center"
@@ -72,7 +72,7 @@
             android:ems="10"
             android:background="@drawable/buttons"
             android:alpha="0.50"
-            android:maxLength="4"
+            android:maxLength="2"
             android:textAlignment="center"
             android:paddingTop="5dp"
             android:text="0"/>
