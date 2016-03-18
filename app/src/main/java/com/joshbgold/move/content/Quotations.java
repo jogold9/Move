@@ -31,7 +31,15 @@ public class Quotations {
         "“Let the breath lead the way.” ― Sharon Salzberg",
         "“Suffering usually relates to wanting things to be different from the way they are.” - Alan Lokos",
         "“Everything is connected.” - Alan Moore",
-        "“Whenever ego suffers from fear of death & your practice turns to seeing impermanence, ego settles down.” - Tsoknyi Rinpoche"
+        "“Whenever ego suffers from fear of death & your practice turns to seeing impermanence, ego settles down.” - Tsoknyi Rinpoche",
+        "What a liberation to realize that the 'voice in my head' is not who I am. 'Who am I, then?' The one who sees that. - Eckhart Tolle",
+        "Being at ease with not knowing is crucial for answers to come to you. - Eckhart Tolle",
+        "When you wash your hands, when you make a cup of coffee, when you're waiting for the elevator - instead of indulging in thinking, these " +
+                "are all opportunities for being there as a still, alert presence. - Eckhardt Tolle",
+        "Most humans are never fully present in the now, because unconsciously they believe that the next moment must be more important than this " +
+                "one. But then you miss your whole life, which is never not now. - Eckhart Tolle"
+
+
 
     };
 
