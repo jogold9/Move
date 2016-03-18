@@ -5,6 +5,31 @@
                 tools:context=".MainActivity"
                 android:background="@drawable/ancient_art">
 
+    <EditText
+        android:id="@+id/AddYourOwn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0.50"
+        android:background="#FFFFFF"
+        android:hint="@string/AddYourOwnReminder"
+        android:maxLength="35"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:textAlignment="center"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
+        android:textCursorDrawable="@null"
+        android:layout_alignTop="@+id/linearLayout2"
+        android:layout_alignRight="@+id/linearLayout3"
+        android:layout_alignEnd="@+id/linearLayout3"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:id="@+id/viewLine2"
+        android:layout_below="@+id/AddYourOwn"
+        android:background="@android:color/holo_blue_light"
+        android:layout_marginTop="10dp"/>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -92,7 +117,7 @@
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Block Reminders on Weekends"
+        android:text="@string/BlockRemindersWeekends"
         android:id="@+id/blockWeekends"
         android:background="@drawable/buttons"
         android:alpha="0.50"
@@ -105,7 +130,7 @@
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Block Reminders Outside 9 a.m. - 5 p.m."
+        android:text="@string/BlockRemindersOutsideWorkday"
         android:id="@+id/blockNonWorkDayHours"
         android:background="@drawable/buttons"
         android:alpha="0.50"

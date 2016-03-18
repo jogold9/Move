@@ -19,6 +19,7 @@ public class SettingsActivity extends Activity {
     private SeekBar volumeControl = null;
     private float volume = (float) 0.50;
     private String repeatIntervalAsString = "";
+    private String customReminderString = "";
     private int repeatIntervalInHours = 0;  //Number of hours that user wants alarm to repeat at (optional)
     private boolean blockWeekendAlarms = false;
     private boolean blockNonWorkHoursAlarms = false;
@@ -29,10 +30,16 @@ public class SettingsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+        final EditText CustomReminderEditText = (EditText) findViewById(R.id.AddYourOwn);
         final EditText repeatIntervalEditText = (EditText) findViewById(R.id.repeatIntervalInMinutes);
         final Button backButton = (Button) findViewById(R.id.backButton);
         final CheckBox blockWeekendsCheckBox = (CheckBox)findViewById(R.id.blockWeekends);
         final CheckBox blockNonWorkHoursCheckBox = (CheckBox)findViewById(R.id.blockNonWorkDayHours);
+
+        customReminderString = loadPrefs("customReminder", customReminderString);
+        if (customReminderString != null && !customReminderString.isEmpty()) {
+            CustomReminderEditText.setText(customReminderString);
+        }
 
         volumeControl = (SeekBar) findViewById(R.id.volumeSeekBar);
 
@@ -104,6 +111,12 @@ public class SettingsActivity extends Activity {
 
                 repeatIntervalAsString = repeatIntervalEditText.getText() + "";
 
+                customReminderString = CustomReminderEditText.getText() + "";
+                repeatIntervalAsString = repeatIntervalEditText.getText() + "";
+
+                savePrefs("customReminder", customReminderString);  //having this after .getText is critical, fails otherwise
+
+
                 try {
 
                     if (repeatIntervalAsString.equals("")){
@@ -158,6 +171,14 @@ public class SettingsActivity extends Activity {
         editor.commit();
     }
 
+    //save prefs
+    public void savePrefs(String key, String value){
+        SharedPreferences sharedPreferences = getSharedPreferences("MoveAppPrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(key, value);
+        editor.commit();
+    }
+
     //get prefs
     private float loadPrefs(String key,float value) {
         SharedPreferences sharedPreferences = getSharedPreferences("MoveAppPrefs", Context.MODE_PRIVATE);
@@ -174,5 +195,11 @@ public class SettingsActivity extends Activity {
     private boolean loadPrefs(String key,boolean value) {
         SharedPreferences sharedPreferences = getSharedPreferences("MoveAppPrefs", Context.MODE_PRIVATE);
         return sharedPreferences.getBoolean(key, value);
+    }
+
+    //get prefs
+    private String loadPrefs(String key,String value) {
+        SharedPreferences sharedPreferences = getSharedPreferences("MoveAppPrefs", Context.MODE_PRIVATE);
+        return sharedPreferences.getString(key, value);
     }
 }

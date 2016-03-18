@@ -1,10 +1,14 @@
 <resources>
     <string name="app_name">Move!</string>
     <string name="action_settings">Settings</string>
+    <string name="banner_ad">ca-app-pub-0656715282551471/8861143064</string>
     <string name="title_activity_task_edit">TaskEditActivity</string>
     <string name="title_activity_reminder">ReminderActivity</string>
     <string name="title_activity_settings">SettingsActivity</string>
 
-    <string name="hello_world">Hello world!</string>
     <string name="title_activity_choose_days">ChooseDays</string>
+    <string name="BlockRemindersWeekends">Block Reminders on Weekends</string>
+    <string name="AddYourOwnReminder">Type Here to Add Your Own Reminder!</string>
+    <string name="BlockRemindersOutsideWorkday">Block Reminders Outside 9 a.m. - 5 p.m.</string>
+    <string name="banner_ad_landscape">ca-app-pub-0656715282551471/2814609466</string>
 </resources>

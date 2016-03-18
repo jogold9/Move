@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -16,6 +18,8 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.joshbgold.move.R;
 import com.joshbgold.move.backend.AlarmReceiver;
 
@@ -36,6 +40,8 @@ public class AlarmActivity extends Activity {
     int repeatIntervalMilliseconds = 0;
     private int hourSet = 0;
     private int minuteSet = 0;
+    boolean connected;
+    protected AdView adview;
 
     //http://developer.android.com/reference/java/util/Calendar.html#compareTo(java.util.Calendar)
     //0 if the times of the two Calendars are equal, -1 if the time of this Calendar is before the other one, 1 if the time of this Calendar is after the other one.
@@ -59,6 +65,16 @@ public class AlarmActivity extends Activity {
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         final Button settingsButton = (Button) findViewById(R.id.settingsButton);
         final Button exitButton = (Button) findViewById(R.id.exitButton);
+        adview = (AdView) findViewById(R.id.adView);
+
+        if(isConnected()) {
+            AdRequest adRequest = new AdRequest.Builder().build();
+            adview.loadAd(adRequest);
+        }
+        else {
+           // Toast.makeText(questsActivity.this, "Oh noes! No connection!", Toast.LENGTH_SHORT).show();
+            adview.setVisibility(View.GONE);
+        }
 
         AlarmActivity.context = getApplicationContext();  //needed to be able to cancel alarm from another activity
 
@@ -214,6 +230,18 @@ public class AlarmActivity extends Activity {
             }
         } catch (Exception e) {
             Log.d("Alarm Activity", e.toString());
+        }
+    }
+
+    //Checks for mobile or wifi connectivity, returns true for connected, false otherwise
+    private boolean isConnected() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if(networkInfo != null && networkInfo.isConnectedOrConnecting()){
+            return true;
+        }
+        else {
+            return false;
         }
     }
 
